@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "day02:01": "serve day02/01-basic-website",
+    "day02:02": "serve day02/02-basic-vue-website"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-vue": "^4.5.0",
     "eslint-plugin-vue-types": "^0.1.0",
+    "serve": "^9.1.0",
     "vue-eslint-parser": "^2.0.3"
   }
 }
