@@ -1,8 +1,34 @@
-import { longestWord, reverseStrings } from './exercises';
+import {
+  compose,
+  countBy,
+  identity,
+  prop,
+  sum,
+  times,
+} from 'ramda';
+import { lotsOfSmiles, longestWord, reverseStrings } from './exercises';
 import reverseStringsData from './fixtures/reverse-strings.json';
 import longestWordData from './fixtures/longest-word.json';
 
+const randomInt = (min, max) => Math.floor(min + (Math.random() * max));
+
 describe('Day 1 Exercises', () => {
+  describe('lotsOfSmiles()', () => {
+    const countSmiles = compose(
+      prop('😀'),
+      countBy(identity)
+    );
+    it('should return "" when array sums to zero', () => {
+      expect(lotsOfSmiles([0])).to.equal('');
+    });
+    it('should return the number of 😀s when passed an array of #s', () => {
+      // Run the test three times, with different data:
+      times(() => {
+        const randomTestData = times(() => randomInt(1, 10), 6);
+        expect(countSmiles(lotsOfSmiles(randomTestData))).to.equal(sum(randomTestData));
+      }, 3);
+    });
+  });
   describe('longestWord()', () => {
     it('should return the longest word when passed a sentence.', () => {
       expect(longestWord(longestWordData.differentLength)).to.equal('flame');

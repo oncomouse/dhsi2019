@@ -12,9 +12,26 @@ You will probably need to use [Ramda](https://ramdajs.com/docs/) to complete, so
 
 Create a file in the `day01` folder called `exercises.js` and try your hand at the following challenges:
 
+### Lots of Smiles
+
+Write a function named `lotsOfSmiles` (and `export` it) that takes an array of numbers and returns a string containing a number of smile emoji (😀) equal to the sum of all the numbers.
+
+Some sample output:
+
+* `[1, 2, 3] => "😀😀😀😀😀😀"`
+* `[0] => ""`
+* `[4, 5] => "😀😀😀😀😀😀😀😀😀"`
+
+#### Questions to Consider
+
+* How do we add together all the numbers in an array?
+	* Check the Ramda docs, we may be able to DRY this one.
+* How do we generate the emoji?
+* How do we make everything into a string?
+
 ### Find the Longest Word in a Sentence
 
-Write a function, named `longestWord` (and `export` it), that takes a string as a parameter and returns the longest word in the sentence. If there are two or more words in the sentence of the same length, return the first alphabetically.
+Write a function named `longestWord` (and `export` it) that takes a string as a parameter and returns the longest word in the sentence. If there are two or more words in the sentence of the same length, return the first alphabetically.
 
 Here are some example outputs:
 
@@ -34,7 +51,7 @@ Here are some example outputs:
 
 ### Reverse Strings in an Array
 
-Write a function, named `reverseStrings` (and `export` it), that will take an array and will, for each string in the array, reverse the string.
+Write a function named `reverseStrings` (and `export` it) that will take an array and will, for each string in the array, reverse the string.
 
 Here are some example outputs:
 
