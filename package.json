@@ -31,5 +31,8 @@
     "mocha": "^5.2.0",
     "serve": "^9.1.0",
     "vue-eslint-parser": "^2.0.3"
+  },
+  "dependencies": {
+    "ramda": "^0.25.0"
   }
 }
