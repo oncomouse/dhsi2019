@@ -32,7 +32,7 @@ Here are some example outputs:
 	* By length?
 	* Alphabetically?
 
-### Reverse an Array of Strings
+### Reverse Strings in an Array
 
 Write a function, named `reverseStrings` (and `export` it), that will take an array and will, for each string in the array, reverse the string.
 
