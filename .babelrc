@@ -8,8 +8,6 @@
 		]
 	],
 	"plugins": [
-		"transform-class-properties",
-		"transform-runtime",
-		"ramda"
+		"transform-class-properties"
 	]
 }
