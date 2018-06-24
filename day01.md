@@ -10,6 +10,10 @@ To learn what we've done, take the last 45 minutes or so of class to work throug
 
 You will probably need to use [Ramda](https://ramdajs.com/docs/) to complete, so make sure to check out the documentation!
 
+If you want an extra challenge, all of these challenges can be completed in the point-free style, if you want to try writing in that manner.
+
+To see if your functions are working, run `npm run day01:test` to check your work.
+
 Create a file in the `day01` folder called `exercises.js` and try your hand at the following challenges:
 
 ### Lots of Smiles

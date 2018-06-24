@@ -16,7 +16,7 @@ describe('Day 1 Exercises', () => {
   describe('lotsOfSmiles()', () => {
     const countSmiles = compose(
       prop('😀'),
-      countBy(identity)
+      countBy(identity),
     );
     it('should return "" when array sums to zero', () => {
       expect(lotsOfSmiles([0])).to.equal('');
