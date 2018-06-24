@@ -14,10 +14,10 @@
     </div>
 	<script type="text/x-template" id="my-form-template">
 		<form @submit.prevent="submitForm">
-		    <view-samples :samples="samples" />
-		    <my-button :action="addSample">Click Me</my-button>
-		    <my-button :action="reset">Reset List</my-button>
-	    </form>
+			<view-samples :samples="samples" />
+			<my-button :action="addSample">Click Me</my-button>
+			<my-button :action="reset">Reset List</my-button>
+		</form>
 	</script>
 	<script src="https://unpkg.com/ramda@0.25.0/dist/ramda.min.js"></script>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.min.js"></script>
