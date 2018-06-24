@@ -24,7 +24,7 @@ describe('Day 1 Exercises', () => {
     it('should return the number of 😀s when passed an array of #s', () => {
       // Run the test three times, with different data:
       times(() => {
-        const randomTestData = times(() => randomInt(1, 10), 6);
+        const randomTestData = times(() => randomInt(1, 10), randomInt(6, 18));
         expect(countSmiles(lotsOfSmiles(randomTestData))).to.equal(sum(randomTestData));
       }, 3);
     });
