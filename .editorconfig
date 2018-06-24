@@ -1,0 +1,21 @@
+[*]
+indent_style = tab
+charset = utf-8
+
+[*.js]
+indent_style = space
+indent_size = 2
+
+[*.jsx]
+indent_style = space
+indent_size = 2
+
+[{package,bower}.json]
+indent_style = space
+indent_size = 2
+
+[webpack.config.js]
+indent_size = 2
+
+[.eslintrc.js]
+indent_size = 2
