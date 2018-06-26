@@ -1,0 +1,14 @@
+{
+  "useConfigFiles": false,
+  "plugins": {
+    "@vue/cli-plugin-babel": {},
+    "@vue/cli-plugin-eslint": {
+      "config": "airbnb",
+      "lintOn": []
+    },
+    "@vue/cli-plugin-unit-mocha": {},
+    "@oncomouse/code-splitting": {}
+  },
+  "router": true,
+  "cssPreprocessor": "sass"
+}

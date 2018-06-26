@@ -76,11 +76,7 @@ Because the wi-fi gets a little spotty at DHSI, I would ask you to download some
 
 In your command line, `cd` into your `Projects/` directory. Then, run the following two commands:
 
-* `npm -g install vue-cli` – This command installs Vue's command-line interface.
-* `vue init oncomouse/vue-template my-first-vue-app` – This will create a new Vue app in the directory `Projects/my-first-vue-app/`, but you can name the directory whatever you would like.
-	* Answer the questions it asks you, but note the following:
-	* If you do not have Google Chrome installed, make sure to anser "No" (`n`) to the question "Is Google Chrome Installed?".
-	* Make sure to answer "No" (`n`) to the question "Install Vuex (state manager)?"
-	* Choose "Yes, use NPM" to the question "Should we run `npm install` for you after the project has been created? (recommended)". This will take a while to finish, but you will be ready to go tomorrow.
+* `npm -g install @vue/cli` – This command installs Vue's command-line interface.
+* `vue create --preset oncomouse/dhsi2019 my-first-vue-app` – This will create a new Vue app in the directory `Projects/my-first-vue-app/`, but you can name the directory whatever you would like.
 
 Have a wonderful evening and see you tomorrow!
