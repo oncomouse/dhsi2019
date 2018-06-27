@@ -7,7 +7,8 @@
       "lintOn": []
     },
     "@vue/cli-plugin-unit-mocha": {},
-    "@oncomouse/code-splitting": {}
+    "@oncomouse/code-splitting": {},
+	"@oncomouse/vue-types": {}
   },
   "router": true,
   "cssPreprocessor": "sass"
