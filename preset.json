@@ -3,8 +3,7 @@
   "plugins": {
     "@vue/cli-plugin-babel": {},
     "@vue/cli-plugin-eslint": {
-      "config": "airbnb",
-      "lintOn": []
+      "config": "airbnb"
     },
     "@vue/cli-plugin-unit-mocha": {},
     "@oncomouse/vue-cli-plugin-code-splitting": {},
