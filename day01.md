@@ -72,11 +72,10 @@ Here are some example outputs:
 
 ## Homework! (sorry)
 
-Because the wi-fi gets a little spotty at DHSI, I would ask you to download some software for tomorrow after class is over. We will be working with a Vue.js starter project template and it has a lot of dependencies to download. So, you will want to start that tonight (mostly because the wifi in the dorms will be faster than it is in our building).
+Because the wi-fi gets a little spotty at DHSI, I would ask you to download some software for tomorrow after class is over. We will be working with a React.js starter project template and it has a lot of dependencies to download. So, you will want to start that tonight (mostly because the wifi in the dorms will be faster than it is in our building).
 
-In your command line, `cd` into your `Projects/` directory. Then, run the following two commands:
+In your command line, `cd` into your `Projects/` directory. Then, run the following command:
 
-* `npm -g install @vue/cli` – This command installs Vue's command-line interface.
-* `vue create --preset oncomouse/dhsi2019 my-first-vue-app` – This will create a new Vue app in the directory `Projects/my-first-vue-app/`, but you can name the directory whatever you would like.
+* `npx create-react-app my-first-react-app`
 
 Have a wonderful evening and see you tomorrow!
