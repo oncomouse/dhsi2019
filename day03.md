@@ -6,6 +6,22 @@
 
 ## Emotion.js
 
+[Emotion](https://emotion.sh/) is a CSS-in-JS framework, which lets us write CSS in JavaScript and use it directly with our React components. Instead of having a separate CSS file, the CSS lives right in the JS code.
+
+For instance, here's a quick, pink button:
+
+~~~ javascript
+import styled, { css } from 'react-emotion'
+
+const Button = styled('button')`
+  color: hotpink;
+`
+
+render(<Button>This is a hotpink button.</Button>)
+~~~
+
+To install, run `npm install emotion react-emotion`.
+
 ## SCSS Frameworks
 
 ### Using SCSS w/ CRA
