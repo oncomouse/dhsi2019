@@ -1,10 +1,14 @@
 # Day 3 – Doing Everything With Style!
 
-## Styling Vue.js
+## Styling React
 
-### Scoped vs Unscoped
+## CSS Modules
+
+## Emotion.js
 
 ## SCSS Frameworks
+
+### Using SCSS w/ CRA
 
 * [Bootstrap](https://getbootstrap.com/)
 * [Foundation](https://foundation.zurb.com/)
