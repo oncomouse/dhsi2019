@@ -1,0 +1,21 @@
+{
+    "Define a React file": {
+        "prefix": "react",
+        "body": [
+            "import React from 'react';",
+            "",
+            "const $1 = (props) => {",
+            "\tconst {",
+            "\t\t",
+            "\t} = props;",
+            "",
+            "\treturn (",
+            "\t\t<div />",
+            "\t);",
+            "}",
+            "",
+            "export default $1;"
+        ],
+        "description": "Create a new React component."
+    }
+}
