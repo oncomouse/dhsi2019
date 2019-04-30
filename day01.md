@@ -1,12 +1,12 @@
 # Day 1 – Working w/ an IDE and ES 2015
 
-## Atom: Our IDE
+## Visual Studio Code: Our IDE
 
 ## ES 2015
 
 ## Exercises!
 
-To learn what we've done, take the last 45 minutes or so of class to work through some exercises designed to let you work with what we have learend.
+To learn what we've done, take the last 45 minutes or so of class to work through some exercises designed to let you work with what we have learned.
 
 You will probably need to use [Ramda](https://ramdajs.com/docs/) to complete, so make sure to check out the documentation!
 
