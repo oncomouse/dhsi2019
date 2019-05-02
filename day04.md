@@ -241,22 +241,159 @@ Note that we are using array slices and array spreads to generate a new array fo
 ~~~javascript
 import React, { useState } from 'react';
 
-const Form = (props) => {
-    const {
+const has = (key, object) => Object.prototype.hasOwnProperty.bind(object, key);
 
-    } = props;
+const BigForm = () => {
+		const [users, setUsers] = useState([]);
 
-    return (
-        <form onSubmit={handleFormSubmit}>
-            <label>First Name</label>
-        </form>
-    )
+		const initialState = {
+				firstName: '',
+				lastName: '',
+				age: 0
+		};
+
+		const [formState, setFormState] = useState(initialState);
+
+		const [errors, setErrors] = useState({});
+
+		const updateFormValue = key => ev => {
+				// We have to cache the value bc React events vanish:
+				const value = ev.target.value;
+				setFormState(prevFormState => ({
+						...prevFormState,
+						[key]: value
+				}))
+		};
+
+		// Do nothing validation:
+		const validate = values => ({});
+
+		const handleFormSubmit = ev => {
+				ev.preventDefault();
+				const errors = validate(formState);
+				if (Object.keys(errors).length === 0) {
+						// Update users:
+						setUsers(prevUsers => ([
+								...prevUsers,
+								formState
+						]));
+						// Reset Form
+						setFormState({
+								...initialState
+						});
+				} else {
+						// Attach error state
+						setErrors(errors);
+				}
+		}
+
+		return (
+				<div>
+						<h1>Complicated User Form</h1>
+						{users.length === 0 ? (<p><em>No Users</em></p>) : (
+								<ul>
+										{ users.map((user, i) => (
+												<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+										))}
+								</ul>
+						)}
+						<form onSubmit={handleFormSubmit}>
+								<div>
+										<label htmlFor="firstName">First Name</label>
+										<input type="text" value={formState.firstName} onChange={updateFormValue('firstName')} />
+										{ has('firstName', errors) ? (<div className="error">{errors.firstName}</div>) : null }
+								</div>
+								<div>
+										<label htmlFor="lastName">Last Name</label>
+										<input type="text" value={formState.lastName} onChange={updateFormValue('lastName')} />
+										{has('lastName', errors) ? (<div className="error">{errors.lastName}</div>) : null}
+								</div>
+								<div>
+										<label htmlFor="age">Age</label>
+										<input type="number" value={formState.age} onChange={updateFormValue('age')} />
+										{has('age', errors) ? (<div className="error">{errors.age}</div>) : null}
+								</div>
+								<div>
+										<button type="submit">Add User</button>
+								</div>
+						</form>
+				</div>
+		)
 }
+				
+export default BigForm;
 ~~~
-
-### Final Form to the Rescue
-
-[React Bindings for Final Form](https://github.com/final-form/react-final-form)
 
 ### Formik!
 
+[Formik](https://jaredpalmer.com/formik/) is a form abstraction layer for React. It doesn't do anything fancy (there are some very fancy React form libraries) but it lets write DRY forms.
+
+Here's the above example rewritten for Formik:
+
+~~~javascript
+import React, { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+const BigForm = () => {
+    const [users, setUsers] = useState([]);
+
+    const initialState = {
+        firstName: '',
+        lastName: '',
+        age: 0
+    };
+
+    const validate = values => ({});
+
+    return (
+        <div>
+            <h1>Complicated User Form</h1>
+            {users.length === 0 ? (<p><em>No Users</em></p>) : (
+                <ul>
+                    { users.map((user, i) => (
+                        <li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+                    ))}
+                </ul>
+            )}
+            <Formik
+                initialValues={initialState}
+                validate={validate}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                    setUsers(prevUsers => {
+                        setSubmitting(false);
+                        resetForm();
+                        return [
+                            ...prevUsers,
+                            values
+                        ];
+                    }); 
+                }}>
+                {({ isSubmitting }) => (
+                    <Form>
+                        <div>
+                            <label htmlFor="firstName">First Name</label>
+                            <Field type="text" name="firstName" />
+                            <ErrorMessage name="firstName" component="div" />
+                        </div>
+                        <div>
+                            <label htmlFor="lastName">Last Name</label>
+                            <Field type="text" name="lastName" />
+                            <ErrorMessage name="lastName" component="div" />
+                        </div>
+                        <div>
+                            <label htmlFor="age">Age</label>
+                            <Field type="number" name="age" />
+                            <ErrorMessage name="age" component="div" />
+                        </div>
+                        <div>
+                            <button type="submit" disabled={isSubmitting}>Add User</button>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
+        </div>
+    )
+}
+        
+export default BigForm;
+~~~
