@@ -326,7 +326,7 @@ export default BigForm;
 
 ### Formik!
 
-[Formik](https://jaredpalmer.com/formik/) is a form abstraction layer for React. It doesn't do anything fancy (there are some very fancy React form libraries) but it lets write DRY forms.
+[Formik](https://jaredpalmer.com/formik/) is a form abstraction layer for React. It doesn't do anything fancy (there are some very fancy React form libraries) but it lets us write DRY forms.
 
 Here's the above example rewritten for Formik:
 
@@ -397,3 +397,27 @@ const BigForm = () => {
         
 export default BigForm;
 ~~~
+
+### Validate with Yup
+
+[Yup](https://github.com/jquense/yup) does "dead simple object schema validation." It's a very easy way to validate a form. Here's how we might rewrite our validate method from above to do validation:
+
+~~~
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+    firstName: yup
+        .string()
+        .required(),
+    lastName: yup
+        .string()
+        .required(),
+    age: yup
+        .number()
+        .positive()
+        .integer()
+        .required()
+});
+~~~
+
+Yup integrates with Formik, so you can change the prop `validate={validate}` to `validationSchema={schema}` and Formik will validate your form *and* generate error messages!
