@@ -133,3 +133,50 @@ We have also demonstrated a key feature here: prop passing. One way to synchroni
 ### Handlers
 
 ## Create React App
+
+## Shortcutting React Components in VS Code
+
+One of the best features of VS Code is the ability to write snippets, custom shortcut completions that quickly define large blocks of code.
+
+In VS Code, hit the command <kbd>Ctrl+Shift+P</kbd> (Windows) or <kbd>Command+Shift+P</kbd> (Mac) to open the command window. Type "snippet" and select "Preferences: Configure User Snippets". Press <kbd>Enter</kbd>. In the menu that appears, find "javascript" and press <kbd>Enter</kbd>.
+
+Doing so will open a `javascript.json` file. Copy the code below, paste it in place of the contents of that file, and save it.
+
+When you open a `.js` file in VS Code, type "react" and press <kbd>Tab</kdb>. You can then type the name of our component. Press <kbd>Tab</kbd> once more and you can define props in the destructuring command.
+
+~~~json
+{
+	// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Define a React file": {
+		"prefix": "react",
+		"body": [
+			"import React from 'react';",
+			"",
+			"const $1 = (props) => {",
+			"\tconst {",
+			"\t\t$2",
+			"\t} = props;",
+			"",
+			"\treturn (",
+			"\t\t<div />",
+			"\t);",
+			"}",
+			"",
+			"export default $1;"
+		],
+		"description": "Create a new React component."
+	}
+}
+~~~
