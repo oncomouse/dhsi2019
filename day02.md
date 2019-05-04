@@ -2,8 +2,12 @@
 
 ## React Components
 
-## Hooks
+### Calculated Props vs String Props
 
-### `useState`
+### Hooks
 
-### `useEffect`
+#### `useState`
+
+#### `useEffect`
+
+## Create React App
