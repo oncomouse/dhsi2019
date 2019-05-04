@@ -2,7 +2,7 @@
 
 ## React Components
 
-*Note*: There are two syntaxes for React, class-based and functional. React, as a whole, is tending toward functional syntax and with the introduction of Hooks in React 0.16, there's little reason to know the class syntax. However, many React tutorials and libraries still use the class syntax in examples. [Check out this tutorial on React's class syntax](react-class-syntax.md), if you want to know more about the original React syntax.
+*Note: There are two syntaxes for React, class-based and functional. React, as a whole, is tending toward functional syntax and with the introduction of Hooks in React 0.16, there's little reason to know the class syntax. However, many React tutorials and libraries still use the class syntax in examples. [Check out this tutorial on React's class syntax](react-class-syntax.md), if you want to know more about the original React syntax.*
 
 React functional components are passed a JavaScript object containing what are called "Props" and return HTML that visualizes those props in some fashion. Along the way, React functional components use "Hooks" to add internal functionality and "Handlers" to respond to user input.
 
@@ -32,7 +32,7 @@ var Headline = function Headline(_ref) {
 
 So, you can begin to see what JSX is actually doing: it's window dressing that makes HTML tags into calls to `React.createElement`. You could write React without JSX, but it is significantly less convenient.
 
-### React Best Practice
+### INTERLUDE: React Best Practice
 
 I'm going to rewrite our example component again:
 
