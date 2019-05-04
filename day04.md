@@ -60,6 +60,8 @@ We are going to look here at two ways of handling this problem, both of which le
 
 Up first is [Unstated](https://github.com/jamiebuilds/unstated).
 
+`npm install unstated` to install.
+
 ~~~javascript
 import React from 'react';
 import { render } from 'react-dom';
@@ -328,6 +330,8 @@ export default BigForm;
 
 [Formik](https://jaredpalmer.com/formik/) is a form abstraction layer for React. It doesn't do anything fancy (there are some very fancy React form libraries) but it lets us write DRY forms.
 
+`npm install formik` to install.
+
 Here's the above example rewritten for Formik:
 
 ~~~javascript
@@ -401,6 +405,8 @@ export default BigForm;
 ### Validate with Yup
 
 [Yup](https://github.com/jquense/yup) does "dead simple object schema validation." It's a very easy way to validate a form. Here's how we might rewrite our validate method from above to do validation:
+
+`npm install yup` to install.
 
 ~~~
 import * as yup from 'yup';

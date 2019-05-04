@@ -139,7 +139,7 @@ The React ecology has a variety of tools that address the chaos that can result 
 
 SASS stands for Syntactically Aware StyleSheets.
 
-To add SASS support to Create React App, run `yarn add node-sass` (but our sample project already has it loaded) and if you rename any files with a `.css` extension to a `.scss` extension, they will be processed by SASS.
+To add SASS support to Create React App, run `npm install node-sass` (but our sample project already has it loaded) and if you rename any files with a `.css` extension to a `.scss` extension, they will be processed by SASS.
 
 ## What Does SASS Offer?
 
@@ -169,16 +169,16 @@ SASS's big advantage over CSS is programmability. SASS is a programming language
 For instance, here's a quick, pink button:
 
 ~~~ javascript
-import styled, { css } from 'react-emotion'
+import styled from '@emotion/styled';
 
-const Button = styled('button')`
+const Button = styled.button`
   color: hotpink;
 `
 
 render(<Button>This is a hotpink button.</Button>)
 ~~~
 
-To install, run `npm install emotion react-emotion`.
+To install, run `npm install @emotion/core @emotion/styled`.
 
 ## SCSS Frameworks
 
