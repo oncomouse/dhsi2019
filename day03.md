@@ -80,11 +80,15 @@ One problem with CSS is it's global namespace, which means that every class, ID,
 
 Large projects address this by writing generalizable CSS modules that are then used across a project or by writing more specifically named classes (often using some kind of scoping system). The important point is CSS can get very chaotic quickly and when working in a team, it's good to have a style guide or set of standards for naming worked out in advance.
 
-### React and CSS Namespacing
+### CSS Namespacing with Create React App
 
-Thankfully, in React, we don't have to worry about this.
+Create React App supports what are called [CSS Modules](https://github.com/css-modules/css-modules). These load CSS as a JavaScript object instead of simply injecting a `<style>` tag into your document.
 
-Let's load some CSS into one of our components and look at the HTML that results in our browser.
+## Adding SASS to React
+
+SASS stands for Syntactically Aware StyleSheets.
+
+To add SASS support to CRA
 
 ## SASS Rules
 
