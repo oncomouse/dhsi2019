@@ -32,24 +32,21 @@ var Headline = function Headline(_ref) {
 
 So, you can begin to see what JSX is actually doing: it's window dressing that makes HTML tags into calls to `React.createElement`. You could write React without JSX, but it is significantly less convenient.
 
-### INTERLUDE: React Best Practice
+## Create React App
 
-I'm going to rewrite our example component again:
+We need to get JSX transpiler set up and add support for some of the CSS stuff we'll be doing tomorrow, but in order to do that, thankfully, we can use a boilerplate application to get strated.
 
-~~~javascript
-const Headline = (props) => {
-	const {
-		title
-	} = props;
-	return (
-		<h1>{title}</h1>
-	);
-}
-~~~
+The React team has released a standardized boilerplate for building React apps called [Create React App](https://github.com/facebook/create-react-app), which provides a quick and easy way to instantiate React projects.
 
-I'm **destructuring** the `props` object into local variables containing the props I will be specifically working with in my component. This makes my code easier to read.
+Assuming you have Node.js installed, you run Create React App by executing `npx create-react-app <project-folder>` with `<project-folder>` being replaced by the name of whatever folder you want to store your new app in. **Don't run create-react-app right now**, though. The one downside to CRA is it relies on the central Node Package Management (NPM) repository to download all the packages you need to build a React app. On the very slow Wi-Fi we sometimes have at DHSI, it can take a while (one student last semester clocked a full run of CRA at 45 minutes). I asked you to download a precompiled CRA app, but I have also got a few copies of that .ZIP on USB sticks if anyone needs to get a copy.
 
-While it isn't required, it is considered a best practice in React to destructure your props.
+So, in a future, post-DHSI world, you would have just finished running CRA, but we have just finished unzipping our CRA template.
+
+In VS Code, go to File -> Open and browse to the folder created by CRA. Once it opens, hit <kbd>Ctrl+\`</kbd> to bring up the console. Type `npm run start` to start the development server for React. You may get asked if you want Node to control your browser, click OK or otherwise allow it. You will have a basic React app displayed in your browser.
+
+Let's look at your app.
+
+## Writing React Components
 
 ### Props
 
@@ -124,15 +121,180 @@ Here we have two components, `Controller` and `Title`. Controller receives `titl
 
 We have also demonstrated a key feature here: prop passing. One way to synchronize across a variety of components is by passing props from a centralized component (sometimes called a container) to sub components that merely display the results of the computation that happens in the container. We'll see more of this when we get to handlers.
 
+## INTERLUDE: React Best Practice
+
+I'm going to rewrite our example component again:
+
+~~~javascript
+const Headline = (props) => {
+	const {
+		title
+	} = props;
+	return (
+		<h1>{title}</h1>
+	);
+}
+~~~
+
+I'm **destructuring** the `props` object into local variables containing the props I will be specifically working with in my component. This makes my code easier to read.
+
+While it isn't required, it is considered a best practice in React to destructure your props.
+### Handlers
+
 ### Hooks
 
 #### `useState`
 
+In React, a component has two ways of tracking data: props, which we have talked about, and state. Where props are passed to the component from a parent component, state is used to keep track of data internally. There is very little in React we cannot keep track of without some kind of internal state.
+
+To add state to a functional React component, we use the `useState` hook. `useState` takes one argument, the initial value of the state variable being created and returns an array of two items: the state variable and a function to call whenever the state variable needs to be updated.
+
+Let's look at an example:
+
+~~~javascript
+import React, { useState } from 'react';
+
+const Counter = () => {
+	const [count, setCount] = useState(0);
+
+	const increment = () => setCount(count => count + 1);
+	const decrement = () => setCount(count => count - 1);
+	const reset = () => setCount(0);
+
+	return (
+		<div>
+			<button onClick={decrement}>-</button>
+			<span>{count}</span>
+			<button onClick={increment}>+</button>
+			<br />
+			<button onClick={reset}>Reset</button>
+		</div>
+	);
+};
+~~~
+
+A couple of questions:
+
+1. What is happening in `increment` and `decrement`?
+	* The setter function can be passed a function when you need to rely on the previous value of state.
+1. Why can't we just do `increment = () => setCount(count + 1)`?
+	* If you don't pass a function to setter, and you call `setCount` twice, you won't have the most recent value.
+	* React functional components only update once per batch of updates.
+
+In React class components, `state` was a single object and you could update the state object by calling `setState` on the part of the object you needed to update. Functional components are designed to not make this easy, so you have to return the entire object, if you're using an object in `state`. Here's an example:
+
+~~~javascript
+import React, { useState } from 'react';
+
+const Counter = () => {
+	const [state, setState] = useState({
+		count: 0,
+		otherThing: 'hello'
+	});
+
+	const increment = () => setState(state => ({
+		...state,
+		count: state.count + 1
+	});
+	const decrement = () => setState(state => ({
+		...state,
+		count: state.count - 1
+	});
+	const decrement = () => setState(state => ({
+		...state,
+		count: 0
+	});
+
+	return (
+		<div>
+			<button onClick={decrement}>-</button>
+			<span>{state.count}</span>
+			<button onClick={increment}>+</button>
+			<br />
+			<button onClick={reset}>Reset</button>
+		</div>
+	);
+};
+~~~
+
+We have to use destructuring to rebuild the entire state object and then we can update the key(s) we care about.
+
 #### `useEffect`
 
-### Handlers
+Another thing React components do is respond to state and prop changes but not in ways that directly result in HTML changes. These side effects generally consist of changing other document elements or in signalling external APIs. To do this, you use the `useEffect` hook, which lets you create a function that runs whenever data changes.
 
-## Create React App
+~~~javascript
+import React, { useState, useEffect } from 'react';
+
+const Counter = () => {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		console.log(`Count is currently: ${count}`);
+	}, [count]);
+
+	const increment = () => setCount(count => count + 1);
+	const decrement = () => setCount(count => count - 1);
+	const reset = () => setCount(0);
+
+	return (
+		<div>
+			<button onClick={decrement}>-</button>
+			<span>{count}</span>
+			<button onClick={increment}>+</button>
+			<br />
+			<button onClick={reset}>Reset</button>
+		</div>
+	);
+};
+~~~
+
+1. What is the second argument passed to `useEffect` doing?
+
+Sometimes, you only want an effect to happening when a component is mounting (being created) or unmounting (being destroyed). To do this, we can still use `useEffect`:
+
+~~~javascript
+import React, { useState, useEffect } from 'react';
+
+const Counter = () => {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		console.log(`Count is currently: ${count}`);
+	}, [count]);
+
+	// Mount & Unmount Side Effects:
+	useEffect(() => {
+		console.log('I\'m mounting…');
+		return () => {
+			console.log('I\'m unmounting…');
+	}, []);
+
+	const increment = () => setCount(count => count + 1);
+	const decrement = () => setCount(count => count - 1);
+	const reset = () => setCount(0);
+
+	return (
+		<div>
+			<button onClick={decrement}>-</button>
+			<span>{count}</span>
+			<button onClick={increment}>+</button>
+			<br />
+			<button onClick={reset}>Reset</button>
+		</div>
+	);
+};
+~~~
+
+1. Why does the new effect only run at mount?
+	* Note the second argument; by setting it to an empty array, there are no values that could ever update.
+1. What's going on with the unmount function?
+	* If an effect returns a function, that function will run when the component is being unmounted.
+
+#### Other Hooks
+
+There are a [few other built-in hooks](https://reactjs.org/docs/hooks-reference.html). There are also a number of hooks available as libraries for extending React.
+
 
 ## Shortcutting React Components in VS Code
 
