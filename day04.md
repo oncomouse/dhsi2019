@@ -427,3 +427,88 @@ const schema = yup.object().shape({
 ~~~
 
 Yup integrates with Formik, so you can change the prop `validate={validate}` to `validationSchema={schema}` and Formik will validate your form *and* generate error messages!
+
+## How Do I Build an App with Multiple Pages?
+
+### React-router
+
+React Router let's you build a single page React app that uses multiple pages that users can move through like a standard HTML website.
+
+React Router is ridiculously powerful and I find I have to look up the API every time I use it, anyway, so I have an example below, but I would suggest looking at [the documentation](https://reacttraining.com/react-router/web/guides/quick-start) to get a sense of everything React Router can do.
+
+~~~javascript
+import React from 'react';
+import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const NavLinks = styled.ul`
+		list-style: none;
+		padding: 0;
+		margin: 0;
+`;
+
+const NavItem = styled.li`
+		display: inline-block;
+		margin: 0.25rem 0.5rem;
+`;
+
+const StyledNavLink = styled(NavLink)`
+		color: blue;
+		text-decoration: none;
+		&.active {
+				font-weight: bold;
+		}
+		&:hover {
+				text-decoration: underline;
+		}
+`
+
+const NavBar = () => (
+		<nav>
+				<NavLinks>
+						<NavItem>
+								<StyledNavLink to="/page1">Page 1</StyledNavLink>
+						</NavItem>
+						<NavItem>
+								<StyledNavLink to="/page2">Page 2</StyledNavLink>
+						</NavItem>
+						<NavItem>
+								<StyledNavLink to="/page3">Page 3</StyledNavLink>
+						</NavItem>
+						<NavItem>
+								<StyledNavLink to="/page4">Page 4</StyledNavLink>
+						</NavItem>
+				</NavLinks>
+		</nav>
+)
+
+const App = () => {
+		return (
+				<Router>
+						<NavBar />
+						{/* Use <Switch> to only render matching route: */}
+						<Switch> 
+								<Route path="/page1" component={Page1} />
+								<Route path="/page2" component={Page2} />
+								<Route path="/page3" component={Page3} />
+								<Route path="/page4" component={Page4} />
+								<Route component={Default} />
+						</Switch>
+				</Router>
+		);
+}
+
+const PageFactory = (number) => () => (<div><h1>Page {number}</h1><p>Welcome to Page {number}</p></div>);
+const Page1 = PageFactory(1);
+const Page2 = PageFactory(2);
+const Page3 = PageFactory(3);
+const Page4 = PageFactory(4);
+
+const Default = ({ location }) => (<div><h1>Default Page</h1><p>Looks like you tried to browse to {location.pathname}, but I don't know that page.</p></div>);
+
+export default App;
+~~~
+
+#### Code Splitting React Router
+
+[https://reacttraining.com/react-router/web/guides/code-splitting](https://reacttraining.com/react-router/web/guides/code-splitting)
