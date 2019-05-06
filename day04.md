@@ -509,6 +509,30 @@ const Default = ({ location }) => (<div><h1>Default Page</h1><p>Looks like you t
 export default App;
 ~~~
 
+You can also detect routes using pattern matching:
+
+~~~javascript
+import React from 'react';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+
+const App = () => {
+		return (
+				<Router>
+						<Route path="/page:number(\d+)" component={Page} />
+						<Route component={Default} />
+				</Router>
+		);
+}
+
+const Page = ({ match }) => (<div><h1>Page {match.params.number}</h1><p>Welcome to Page {match.params.number}</p></div>);
+
+const Default = ({ location }) => (<div><h1>Default Page</h1><p>Looks like you tried to browse to {location.pathname}, but I don't know that page.</p></div>);
+
+export default App;
+~~~
+
+React Router uses a library called [path-to-regexp](https://github.com/pillarjs/path-to-regexp) for generating these matches. There are a lot of options, so take a look at the documentation, if you need to write more complex route matches.
+
 #### Code Splitting React Router
 
 Apps with multiple pages can start to get very big. Thankfully React Router supports what is called "code splitting" (this is actually something supported generally by Create React App and you can use it in multiple ways). With code splitting, you can only load the route you need, as the user browses to it. If they don't visit every page, they won't use all of them.
