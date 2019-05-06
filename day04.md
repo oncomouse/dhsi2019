@@ -511,4 +511,18 @@ export default App;
 
 #### Code Splitting React Router
 
+Apps with multiple pages can start to get very big. Thankfully React Router supports what is called "code splitting" (this is actually something supported generally by Create React App and you can use it in multiple ways). With code splitting, you can only load the route you need, as the user browses to it. If they don't visit every page, they won't use all of them.
+
 [https://reacttraining.com/react-router/web/guides/code-splitting](https://reacttraining.com/react-router/web/guides/code-splitting)
+
+
+## Other React Things to Know
+
+1. Server-side Rendering
+1. Data Visualization
+	* [Good article on data viz components for React](https://medium.com/dailyjs/data-visualization-libraries-for-react-developers-in-2019-a2b9c01262f8)
+1. [React Native](https://facebook.github.io/react-native/)
+	* Build mobile apps using React & JavaScript
+1. Awesome Lists
+	1. [React Components](https://github.com/brillout/awesome-react-components)
+	1. [React](https://github.com/enaqx/awesome-react)
