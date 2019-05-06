@@ -116,8 +116,7 @@ A **reducer** is a special type of function that takes two arguments:
 		1. `type` -- the type of action being performed
 		1. `payload` -- any data that may be necessary to perform the action.
 
-The function has a very particular return type: if the action is of a type the reducer cares about, it *returns a copy* of state having been updated based on the action. If the action is of a type the reducer does not care about, it returns state unchanged.
-
+The function has a very particular return type: if the action is of a type the reducer cares about, it returns *a copy* of `state` having been updated based on the action. If the action is of a type the reducer does not care about, it returns `state` unchanged.
 
 Here's how we do this with React's new `useReducer` hook:
 
