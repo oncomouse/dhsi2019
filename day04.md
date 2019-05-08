@@ -542,6 +542,9 @@ Apps with multiple pages can start to get very big. Thankfully React Router supp
 ## Other React Things to Know
 
 1. Server-side Rendering
+1. SSR Frameworks: these are all-in-one application frameworks, like much more powerful versions of CRA. They support things like routing and static compilation right out of the box.
+	* [Next.js](https://nextjs.org/)
+	* [Gatsby](https://www.gatsbyjs.org/)
 1. Data Visualization
 	* [Good article on data viz components for React](https://medium.com/dailyjs/data-visualization-libraries-for-react-developers-in-2019-a2b9c01262f8)
 1. [React Native](https://facebook.github.io/react-native/)
@@ -549,3 +552,6 @@ Apps with multiple pages can start to get very big. Thankfully React Router supp
 1. Awesome Lists
 	1. [React Components](https://github.com/brillout/awesome-react-components)
 	1. [React](https://github.com/enaqx/awesome-react)
+1. [GraphQL](https://graphql.org/)
+	* A complex, structured query language used in a lot of React apps.
+	* [Apollo](https://www.apollographql.com/) is a popular client/server framework for GraphQL apps.
