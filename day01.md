@@ -2,6 +2,22 @@
 
 ## Visual Studio Code: Our IDE
 
+We will be using Microsoft's [Visual Studio Code](https://code.visualstudio.com/). Code is an open-source IDE (integrated development environment) for many languages. It offers a lot of support for working with advanced JavaScript out-of-the-box.
+
+### Getting Started
+
+VS Code is very customizable. If you want to, you can change the font (I use the [Fira Code Nerd Font](https://nerdfonts.com/)) and set or install a different color theme (I use "Oceanic Next").
+
+Once you have a font you like and a color scheme, if you want it, you can get started working.
+
+### Installing Extensions
+
+In addition to customizing the appearance and behavior of the application, VS Code has an Extension market that adds functionality to the editor.
+
+While there are no required extensions for this class, I would recommend installing "ESLint" into your VS Code. The wi-fi might be slow in our classroom, and we won't be using our linter until tomorrow, so you could install it tonight.
+
+To do so, click on the "Extension" icon or use the shortcut (<kbd>⇧+⌘+X</kbd> on Mac; <kbd>⇧+^+X</kbd> on Windows) to open the Extension market. Search for "eslint" and install the "ESLint" package (it's written by Dirk Baeumer and version 1.8.2, currently). Click the green "Install" button and the extension will download and install.
+
 ## What Things Do You Need to Learn React?
 
 ### Scope and Closures
@@ -174,7 +190,7 @@ Reduce is used to convert an array into a single value. We could calculate the l
 const length = array => array.reduce(length => length + 1, 0);
 ~~~
 
-*Hint: Don't ever do this. You access the `.length` property (`[1,2,3].length`) to access an array's length.*
+*Hint: Don't ever do this. The `.length` property (`[1,2,3].length`) contains an array's length.*
 
 ##### `.reduceRight()`
 
@@ -411,23 +427,25 @@ The above function will multiple it's argument by 2 and then add 1 (remember, we
 
 Composition is a useful way to compose and re-compose complex solutions using simple pieces.
 
-A functional library such as [Ramda](https://ramdajs.com/) contains a series of utility functions that makes solving problems using `compose` easy.
+A functional library such as [Ramda](https://ramdajs.com/) contains a series of utility functions that makes solving problems using `compose` easy. Ramda also contains a compose function.
 
 With Ramda installed, in Node, we can do:
 
 ~~~javascript
-const { add, compose, multiply } = require('ramda');
+const R = require('ramda');
+
+const doSomeMath = R.compose(R.add(1), R.multiply(2));
+~~~
+
+You can also import Ramda functions individually (in certain applications this can be more efficient):
+
+~~~javascript
+import { compose, add, multiply } from 'ramda';
 
 const doSomeMath = compose(add(1), multiply(2));
 ~~~
 
-In the browser, with Ramda loaded, we could run:
-
-~~~javascript
-var doSomeMath = R.compose(R.add(1), R.multiply(2));
-~~~
-
-This works because functions in Ramda are [curried](https://en.wikipedia.org/wiki/Currying), which means that if they are run with fewer than the required arguments, they will return a function that will complete the operation when all arguments are supplied.
+Our function composition works because functions in Ramda are [curried](https://en.wikipedia.org/wiki/Currying), which means that if they are run with fewer than the required arguments, they will return a function that will complete the operation when all arguments are supplied.
 
 So, for instance, `R.add(1,2)` returns `3`, but `R.add(1)` returns a function that, when passed a number, returns `1+x`. So, in Ramda, `R.add(1,2)` is equivalent to `R.add(1)(2)`.
 
@@ -447,11 +465,11 @@ To learn what we've done, take the last 45 minutes or so of class to work throug
 
 You will probably need to use [Ramda](https://ramdajs.com/docs/) to complete, so make sure to check out the documentation!
 
-If you want an extra challenge, all of these challenges can be completed in the point-free style, if you want to try writing in that manner.
+If you want an extra special challenge, you can use Ramda to write all of these in point-free style (http://randycoulman.com/blog/2016/06/21/thinking-in-ramda-pointfree-style/), which is a way to earn some solid functional programming geek cred.
 
-To see if your functions are working, run `npm run day01:test` to check your work.
+To see if your functions are working, run `npm run test` in the terminal in VS Code to start Jest, the testing framework installed in our demo application.
 
-Create a file in the `day01` folder called `exercises.js` and try your hand at the following challenges:
+There is a stubbed file called `src/day01/exercises.js` that you can edit to include these functions.
 
 ### Lots of Smiles
 
@@ -506,13 +524,3 @@ Here are some example outputs:
 * How do you reverse a string?
 * How do you detect if something is a string?
 * How do we apply something to the whole of an array?
-
-## Homework! (sorry)
-
-Because the wi-fi gets a little spotty at DHSI, I would ask you to download some software for tomorrow after class is over. We will be working with a React.js starter project template and it has a lot of dependencies to download. So, you will want to start that tonight (mostly because the wifi in the dorms will be faster than it is in our building).
-
-In your command line, `cd` into your `Projects/` directory. Then, run the following command:
-
-* `npx create-react-app my-first-react-app`
-
-Have a wonderful evening and see you tomorrow!
