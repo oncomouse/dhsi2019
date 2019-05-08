@@ -38,7 +38,7 @@ We need to get JSX transpiler set up and add support for some of the CSS stuff w
 
 The React team has released a standardized boilerplate for building React apps called [Create React App](https://github.com/facebook/create-react-app), which provides a quick and easy way to instantiate React projects.
 
-Assuming you have Node.js installed, you run Create React App by executing `npx create-react-app <project-folder>` with `<project-folder>` being replaced by the name of whatever folder you want to store your new app in. **Don't run create-react-app right now**, though. The one downside to CRA is it relies on the central Node Package Management (NPM) repository to download all the packages you need to build a React app. On the very slow Wi-Fi we sometimes have at DHSI, it can take a while (one student last semester clocked a full run of CRA at 45 minutes). I asked you to download a precompiled CRA app, but I have also got a few copies of that .ZIP on USB sticks if anyone needs to get a copy.
+Assuming you have Node.js installed, you can run Create React App by executing `npx create-react-app <project-folder>` with `<project-folder>` being replaced by the name of whatever folder you want to store your new app in. **Don't run create-react-app right now**, though. The one downside to CRA is it relies on the central Node Package Management (NPM) repository to download all the packages you need to build a React app. On the very slow Wi-Fi we sometimes have at DHSI, it can take a while (one student last semester clocked a full run of CRA at 45 minutes). I asked you to download a precompiled CRA app, but I have also got a few copies of that .ZIP on USB sticks if anyone needs to get a copy.
 
 So, in a future, post-DHSI world, you would have just finished running CRA, but we have just finished unzipping our CRA template.
 
@@ -67,7 +67,7 @@ This is an input element that has four props:
 1. `class`
 1. `placeholder`
 
-If we were to construct these props as a JavaScript array, we would have:
+If we were to construct these props as a JavaScript object, we would have:
 
 ~~~json
 {
@@ -78,13 +78,13 @@ If we were to construct these props as a JavaScript array, we would have:
 }
 ~~~
 
-And if our input was a React component, that is exactly what it's `props` parameter would look like.
+And if our `<input>` was a React component, that is exactly what it's `props` parameter would look like.
 
 #### Reserved Props
 
 … Well not exactly.
 
-In JavaScript, "class" is a reserved word, so React has you declare a CSS class for a component using `className`.
+In JavaScript, "class" is a reserved word, so React has you declare a CSS class for a component using the `className` prop.
 
 Additionally, "for" (which is used on `<label>`) is `htmlFor`.
 
@@ -139,7 +139,63 @@ const Headline = (props) => {
 I'm **destructuring** the `props` object into local variables containing the props I will be specifically working with in my component. This makes my code easier to read.
 
 While it isn't required, it is considered a best practice in React to destructure your props.
+
 ### Handlers
+
+JavaScript works by attaching "event listeners" to elements in the HTML document. These listeners are functions that run every time a particular event is triggered.
+
+Here is an example that uses JavaScript's Document Object Model (DOM) API:
+
+~~~javascript
+document.querySelectorAll('li a').addEventListener('click', function(ev) {
+	ev.preventDefault();
+	console.log('You clicked on ' + ev.target);
+});
+~~~
+
+This is not an interesting example, but it will attach a function to every link (`<a>` tag) inside of a list item (`<li>`). This function will cancel the usual link behavior and instead just log the `<a>` to the console.
+
+In this example, the function that takes an event object (`ev`) is called an event handler. It handles the `click` event for those links.
+
+In React, we pass event handlers to special event props (that are all of the form "on" + (capitalized event name), so "onClick" or "onChange"). React uses [most DOM events](https://reactjs.org/docs/events.html#supported-events) in JSX.
+
+
+To implement the same behavior in React, we do:
+
+~~~javascript
+import React from 'react';
+
+const SimpleHandler = () => {
+    const clickHandler = (ev) => {
+        ev.preventDefault();
+        console.log(`You clicked on ${ev.target}`);
+    };
+
+    const names = [
+        'Mary',
+        'Amy',
+        'Rita',
+        'Samantha'
+    ];
+
+    return (
+        <div>
+            <ul>
+                {names.map((name, i) => (
+                    <li key={i}>
+                        <a
+                            onClick={clickHandler}
+                            href={`https://en.wikipedia.org/wiki/${name}`}
+                        >{name}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+};
+
+export default SimpleHandler;
+~~~
 
 ### Hooks
 
@@ -295,6 +351,40 @@ const Counter = () => {
 
 There are a [few other built-in hooks](https://reactjs.org/docs/hooks-reference.html). There are also a number of hooks available as libraries for extending React.
 
+## Using Hooks and Handlers: Basic React Forms
+
+Now that we know how to do hooks and handlers, we can talk about React's approach to forms (which is a bit idiosyncratic). These simple forms will work for most basic situations. The day after tomorrow, we'll talk about how to use some libraries that make this easier for complex forms.
+
+In React, a form component's value should display a state variable and should be updated using an `onChange` handler.So, for instance, to let a user input name, we'd do:
+
+~~~javascript
+import React, { useState } from 'react';
+
+const Form = () => {
+	const [userInput,  setUserInput] = useState('');
+
+	const handleChange = ev => setUserInput(ev.target.value);
+	const handleSubmit = (ev) => {
+		ev.preventDefault();
+		// Do whatever you'd do with userInput, like send it to a parent or call an API
+		setUserInput('');
+	}
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<div>
+				<label htmlFor="user">Enter User Name:</label>
+				<input name="user" onChange={handleChange} value={userInput} />
+			</div>
+			<div>
+				<button type="submit">Add User</button>
+			</div>
+		</form>
+	);
+}
+~~~
+
+We do forms this way to avoid having to interact with the DOM API to get the value of each form input. The issue with this approach, however, is it gets very complicated if you have an even remotely complex form. As I said, in two days, we will look at a library called [Formik](https://jaredpalmer.com/formik/) that simplifies a lot of this work.
 
 ## Shortcutting React Components in VS Code
 
@@ -342,3 +432,23 @@ When you open a `.js` file in VS Code, type "react" and press <kbd>Tab</kbd>. Yo
 	}
 }
 ~~~
+
+## Exercises!
+
+### `longestWord`: The React Component
+
+Write a React component that uses the `longestWord` function we wrote in Exercise 2 from yesterday. For the component, I'd like you to have a form that let's a user input a sentence and, as they type, displays the longest word in an `h1` tag.
+
+#### Questions
+
+1. Can we use the `longestWord` solution we wrote yesterday without having to copy / paste it?
+1. How can we visually check the results of our work?
+
+### Add to a List of Users
+
+Write a React component that extends the form example above by adding the user name input by the user to an Array. The component should also display the user names that have been added.
+
+#### Questions
+
+1. How do we track the list of users?
+1. How do we display an array in React?

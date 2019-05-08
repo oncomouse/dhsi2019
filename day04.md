@@ -239,6 +239,8 @@ Note that we are using array slices and array spreads to generate a new array fo
 
 ### The React Way
 
+Two days ago, we talked about the basic combination of hooks and handlers needed to implement forms in React. I mentioned that the React approach, while logical, gets very complicated, very quickly. Here is a longer form that tries to manage a bigger form as best it can:
+
 ~~~javascript
 import React, { useState } from 'react';
 
@@ -324,6 +326,10 @@ const BigForm = () => {
 				
 export default BigForm;
 ~~~
+
+This is still pretty complicated, though we could make it work if we needed to.
+
+However, thankfully, this is a common problem in the React community, so we can probably find a library to do much of this for us.
 
 ### Formik!
 
