@@ -42,7 +42,9 @@ Assuming you have Node.js installed, you can run Create React App by executing `
 
 So, in a future, post-DHSI world, you would have just finished running CRA, but we have just finished unzipping our CRA template.
 
-In VS Code, go to File -> Open and browse to the folder created by CRA. Once it opens, hit <kbd>Ctrl+\`</kbd> to bring up the console. Type `npm run start` to start the development server for React. You may get asked if you want Node to control your browser, click OK or otherwise allow it. You will have a basic React app displayed in your browser.
+In VS Code, go to File -> Open and browse to the folder created by CRA. Once it opens, go to `View->Terminal` to bring up the console. Type `npm run start` to start the development server for React. You may get asked if you want Node to control your browser, click OK or otherwise allow it. You will have a basic React app displayed in your browser.
+
+Because you sometimes need the development server running *and* Node.js open to check code, if you go to `Terminal->Split Terminal` in Code, you can have two terminals open at the same time.
 
 Let's look at your app.
 
