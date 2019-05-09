@@ -368,10 +368,9 @@ const Form = () => {
 
 	const handleChange = ev => setUserInput(ev.target.value);
 	const handleSubmit = (ev) => {
-	ev.preventDefault();
-	};
-	// Do whatever you'd do with userInput, like send it to a parent or call an API
-	setUserInput('');
+		ev.preventDefault();
+		// Do whatever you'd do with userInput, like send it to a parent or call an API
+		setUserInput('');
 	}
 
 	return (
