@@ -433,6 +433,124 @@ const schema = yup.object().shape({
 
 Yup integrates with Formik, so you can change the prop `validate={validate}` to `validationSchema={schema}` and Formik will validate your form *and* generate error messages!
 
+## How Do I Access External Data?
+
+### `fetch`
+
+`fetch` is the newest JavaScript API for getting external data. `fetch` can be a bit finicky, but it's better than the older XMLHttpRequest API. [Google has a good tutorial about it](https://developers.google.com/web/updates/2015/03/introduction-to-fetch).
+
+Fetch uses the JavaScript `Promise` API, which is a way of describing what an asynchronous actions *will* do (rather than what it does). Rather than work with a returned value, Promises have you chain one or more calls to `.then()` where each function passed as an argument to `then()` will be the returned value of the previous `then()` or the result of `fetch()` itself. These calls will only execute *when the API call is done*. This takes some getting used to, but here's an example:
+
+~~~javascript
+fetch('some.remote.json')
+	.then((response) => {
+		console.log(response.headers.get('Content-Type'));
+		console.log(response.headers.get('Date'));
+
+		console.log(response.status);
+		console.log(response.statusText);
+		console.log(response.type);
+		console.log(response.url);
+	});
+~~~
+
+All of those console messages, which tell us about the information the server responded with, will only show up when the request is complete.
+
+A more complete `fetch` call would look like this (and you can use this as boilerplate in your apps):
+
+~~~javascript
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+fetch('https://jsonplaceholder.typicode.com/todos')
+	.then(status)
+	.then(response => response.json()) // Access the JSON data (as a JS object)
+	.then(data => {
+		console.log('Here's your data: ' + data);
+	})
+	.catch(error => {
+		console.log('There was an error: ' + error);
+	});
+~~~
+
+You can also use `fetch` for "POST", "PUT", and "DELETE" operations, if you are working with a full REST API:
+
+~~~javascript
+fetch(url, {
+	method: 'post',
+	headers: {
+		"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+	},
+	body: 'foo=bar&lorem=ipsum'
+})
+	.then(status)
+	.then(response => response.json())
+	.then(data => {
+		console.log('Here's your data: ' + data);
+	})
+	.catch(error => {
+		console.log('There was an error: ' + error);
+	});
+~~~
+
+There are also libraries that can convert form and state data in React into a valid `fetch` call.
+
+### `useThunkReducer`
+
+In the realm of funny-sounding computer science terms, a "thunk" is pretty high on the list. We've been using several of them already, but a thunk is a function that returns another function.
+
+In Redux (and by extension when we use the `useReducer` effect), thunks are the easiest way to implement accessing external data. We simply write a reducer that returns a function which takes two arguments: `dispatch` and `getState`. Both are functions.
+
+We can then write our actions like so:
+
+~~~javascript
+const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
+
+function increment() {
+  return {
+    type: INCREMENT_COUNTER
+  };
+}
+
+function incrementAsync() {
+  return dispatch => {
+    setTimeout(() => {
+      // Yay! Can invoke sync or async actions with `dispatch`
+      dispatch(increment());
+    }, 1000);
+  };
+}
+~~~
+
+If we replaced the `setTimeout` call with a `fetch` call, we can then `dispatch` a synchronous action when our API call is finished to move the reducer forward.
+
+Here's `useThunkReducer`:
+
+~~~javascript
+import { useReducer } from 'react';
+
+const wrapper = ([state, dispatch]) => {
+	return [state, (action) => {
+		if(typeof action === 'function') {
+			return action(dispatch, () => state);
+		} else {
+			return dispatch(action);
+		}
+	}];
+}
+
+const useThunkReducer = (reducer, initialState, init=x=>x) => {
+	return wrapper(useReducer(reducer, initialState, init));
+}
+
+export default useThunkReducer;
+~~~
+
 ## How Do I Build an App with Multiple Pages?
 
 ### React-router
@@ -543,7 +661,6 @@ React Router uses a library called [path-to-regexp](https://github.com/pillarjs/
 Apps with multiple pages can start to get very big. Thankfully React Router supports what is called "code splitting" (this is actually something supported generally by Create React App and you can use it in multiple ways). With code splitting, you can only load the route you need, as the user browses to it. If they don't visit every page, they won't use all of them.
 
 [https://reacttraining.com/react-router/web/guides/code-splitting](https://reacttraining.com/react-router/web/guides/code-splitting)
-
 
 ## Other React Things to Know
 
