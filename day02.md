@@ -286,7 +286,7 @@ const Counter = () => {
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
-		console.log(`Count is currently: ${count}`);
+	console.log(`Count is currently: ${count}`);
 	}, [count]);
 
 	const increment = () => setCount(count => count + 1);
@@ -294,13 +294,13 @@ const Counter = () => {
 	const reset = () => setCount(0);
 
 	return (
-		<div>
-			<button onClick={decrement}>-</button>
-			<span>{count}</span>
-			<button onClick={increment}>+</button>
-			<br />
-			<button onClick={reset}>Reset</button>
-		</div>
+	<div>
+		<button onClick={decrement}>-</button>
+		<span>{count}</span>
+		<button onClick={increment}>+</button>
+		<br />
+		<button onClick={reset}>Reset</button>
+	</div>
 	);
 };
 ~~~
@@ -324,6 +324,7 @@ const Counter = () => {
 		console.log('I\'m mounting…');
 		return () => {
 			console.log('I\'m unmounting…');
+		};
 	}, []);
 
 	const increment = () => setCount(count => count + 1);
@@ -365,21 +366,22 @@ const Form = () => {
 
 	const handleChange = ev => setUserInput(ev.target.value);
 	const handleSubmit = (ev) => {
-		ev.preventDefault();
-		// Do whatever you'd do with userInput, like send it to a parent or call an API
-		setUserInput('');
+	ev.preventDefault();
+	};
+	// Do whatever you'd do with userInput, like send it to a parent or call an API
+	setUserInput('');
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<label htmlFor="user">Enter User Name:</label>
-				<input name="user" onChange={handleChange} value={userInput} />
-			</div>
-			<div>
-				<button type="submit">Add User</button>
-			</div>
-		</form>
+	<form onSubmit={handleSubmit}>
+		<div>
+			<label htmlFor="user">Enter User Name:</label>
+			<input name="user" onChange={handleChange} value={userInput} />
+		</div>
+		<div>
+			<button type="submit">Add User</button>
+		</div>
+	</form>
 	);
 }
 ~~~

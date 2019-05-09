@@ -199,3 +199,5 @@ To install, run `npm install @emotion/core @emotion/styled`.
 * [What is Functional CSS?](https://jon.gold/2015/07/functional-css/)
 * [CSS and Scalability](http://mrmrs.cc/writing/2016/03/24/scalable-css/)
 * [Rationalizing Functional CSS](https://marcelosomers.com/writing/rationalizing-functional-css/)
+
+## Exercises!

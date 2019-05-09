@@ -247,83 +247,83 @@ import React, { useState } from 'react';
 const has = (key, object) => Object.prototype.hasOwnProperty.bind(object, key);
 
 const BigForm = () => {
-		const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState([]);
 
-		const initialState = {
-				firstName: '',
-				lastName: '',
-				age: 0
-		};
+	const initialState = {
+			firstName: '',
+			lastName: '',
+			age: 0
+	};
 
-		const [formState, setFormState] = useState(initialState);
+	const [formState, setFormState] = useState(initialState);
 
-		const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState({});
 
-		const updateFormValue = key => ev => {
-				// We have to cache the value bc React events vanish:
-				const value = ev.target.value;
-				setFormState(prevFormState => ({
-						...prevFormState,
-						[key]: value
-				}))
-		};
+	const updateFormValue = key => ev => {
+			// We have to cache the value bc React events vanish:
+			const value = ev.target.value;
+			setFormState(prevFormState => ({
+				...prevFormState,
+				[key]: value
+			}))
+	};
 
-		// Do nothing validation:
-		const validate = values => ({});
+	// Do nothing validation:
+	const validate = values => ({});
 
-		const handleFormSubmit = ev => {
-				ev.preventDefault();
-				const errors = validate(formState);
-				if (Object.keys(errors).length === 0) {
-						// Update users:
-						setUsers(prevUsers => ([
-								...prevUsers,
-								formState
-						]));
-						// Reset Form
-						setFormState({
-								...initialState
-						});
-				} else {
-						// Attach error state
-						setErrors(errors);
-				}
+	const handleFormSubmit = ev => {
+		ev.preventDefault();
+		const errors = validate(formState);
+		if (Object.keys(errors).length === 0) {
+			// Update users:
+			setUsers(prevUsers => ([
+				...prevUsers,
+				formState
+			]));
+			// Reset Form
+			setFormState({
+				...initialState
+			});
+		} else {
+			// Attach error state
+			setErrors(errors);
 		}
+	}
 
-		return (
+	return (
+		<div>
+			<h1>Complicated User Form</h1>
+			{users.length === 0 ? (<p><em>No Users</em></p>) : (
+				<ul>
+					{ users.map((user, i) => (
+						<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+					))}
+				</ul>
+			)}
+			<form onSubmit={handleFormSubmit}>
 				<div>
-						<h1>Complicated User Form</h1>
-						{users.length === 0 ? (<p><em>No Users</em></p>) : (
-								<ul>
-										{ users.map((user, i) => (
-												<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
-										))}
-								</ul>
-						)}
-						<form onSubmit={handleFormSubmit}>
-								<div>
-										<label htmlFor="firstName">First Name</label>
-										<input type="text" value={formState.firstName} onChange={updateFormValue('firstName')} />
-										{ has('firstName', errors) ? (<div className="error">{errors.firstName}</div>) : null }
-								</div>
-								<div>
-										<label htmlFor="lastName">Last Name</label>
-										<input type="text" value={formState.lastName} onChange={updateFormValue('lastName')} />
-										{has('lastName', errors) ? (<div className="error">{errors.lastName}</div>) : null}
-								</div>
-								<div>
-										<label htmlFor="age">Age</label>
-										<input type="number" value={formState.age} onChange={updateFormValue('age')} />
-										{has('age', errors) ? (<div className="error">{errors.age}</div>) : null}
-								</div>
-								<div>
-										<button type="submit">Add User</button>
-								</div>
-						</form>
+					<label htmlFor="firstName">First Name</label>
+					<input type="text" value={formState.firstName} onChange={updateFormValue('firstName')} />
+					{ has('firstName', errors) ? (<div className="error">{errors.firstName}</div>) : null }
 				</div>
-		)
+				<div>
+					<label htmlFor="lastName">Last Name</label>
+					<input type="text" value={formState.lastName} onChange={updateFormValue('lastName')} />
+					{has('lastName', errors) ? (<div className="error">{errors.lastName}</div>) : null}
+				</div>
+				<div>
+					<label htmlFor="age">Age</label>
+					<input type="number" value={formState.age} onChange={updateFormValue('age')} />
+					{has('age', errors) ? (<div className="error">{errors.age}</div>) : null}
+				</div>
+				<div>
+					<button type="submit">Add User</button>
+				</div>
+			</form>
+		</div>
+	)
 }
-				
+
 export default BigForm;
 ~~~
 
@@ -447,60 +447,60 @@ import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-do
 import styled from '@emotion/styled';
 
 const NavLinks = styled.ul`
-		list-style: none;
-		padding: 0;
-		margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 `;
 
 const NavItem = styled.li`
-		display: inline-block;
-		margin: 0.25rem 0.5rem;
+	display: inline-block;
+	margin: 0.25rem 0.5rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
-		color: blue;
-		text-decoration: none;
-		&.active {
-				font-weight: bold;
-		}
-		&:hover {
-				text-decoration: underline;
-		}
+	color: blue;
+	text-decoration: none;
+	&.active {
+		font-weight: bold;
+	}
+	&:hover {
+		text-decoration: underline;
+	}
 `
 
 const NavBar = () => (
-		<nav>
-				<NavLinks>
-						<NavItem>
-								<StyledNavLink to="/page1">Page 1</StyledNavLink>
-						</NavItem>
-						<NavItem>
-								<StyledNavLink to="/page2">Page 2</StyledNavLink>
-						</NavItem>
-						<NavItem>
-								<StyledNavLink to="/page3">Page 3</StyledNavLink>
-						</NavItem>
-						<NavItem>
-								<StyledNavLink to="/page4">Page 4</StyledNavLink>
-						</NavItem>
-				</NavLinks>
-		</nav>
+	<nav>
+		<NavLinks>
+			<NavItem>
+				<StyledNavLink to="/page1">Page 1</StyledNavLink>
+			</NavItem>
+			<NavItem>
+				<StyledNavLink to="/page2">Page 2</StyledNavLink>
+			</NavItem>
+			<NavItem>
+				<StyledNavLink to="/page3">Page 3</StyledNavLink>
+			</NavItem>
+			<NavItem>
+				<StyledNavLink to="/page4">Page 4</StyledNavLink>
+			</NavItem>
+		</NavLinks>
+	</nav>
 )
 
 const App = () => {
-		return (
-				<Router>
-						<NavBar />
-						{/* Use <Switch> to only render matching route: */}
-						<Switch> 
-								<Route path="/page1" component={Page1} />
-								<Route path="/page2" component={Page2} />
-								<Route path="/page3" component={Page3} />
-								<Route path="/page4" component={Page4} />
-								<Route component={Default} />
-						</Switch>
-				</Router>
-		);
+	return (
+		<Router>
+			<NavBar />
+			{/* Use <Switch> to only render matching route: */}
+			<Switch> 
+				<Route path="/page1" component={Page1} />
+				<Route path="/page2" component={Page2} />
+				<Route path="/page3" component={Page3} />
+				<Route path="/page4" component={Page4} />
+				<Route component={Default} />
+			</Switch>
+		</Router>
+	);
 }
 
 const PageFactory = (number) => () => (<div><h1>Page {number}</h1><p>Welcome to Page {number}</p></div>);
@@ -521,12 +521,12 @@ import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
-		return (
-				<Router>
-						<Route path="/page:number(\d+)" component={Page} />
-						<Route component={Default} />
-				</Router>
-		);
+	return (
+		<Router>
+			<Route path="/page:number(\d+)" component={Page} />
+			<Route component={Default} />
+		</Router>
+	);
 }
 
 const Page = ({ match }) => (<div><h1>Page {match.params.number}</h1><p>Welcome to Page {match.params.number}</p></div>);
