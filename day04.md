@@ -7,43 +7,42 @@
 The easiest way to solve this is by passing props. For instance:
 
 ~~~javascript
-import React from 'react';
-import { render } from 'react-dom';
+import React, { useState, useEffect } from 'react';
 
 const Button = (props) => {
-    const {
-        clickHandler,
-        children,
-        ...otherProps
-    } = props;
+	const {
+		clickHandler,
+		children,
+		...otherProps
+	} = props;
 
-    return (
-        <button onClick={clickHandler} {...otherProps}>{children}</button>
-    );
+	return (
+		<button onClick={clickHandler} {...otherProps}>{children}</button>
+	);
 };
 
 const Counter = () => {
-    const [count, setCount] = useState(0);
-    const decrement = () => setCount(count => count - 1);
-    const increment = () => setCount(count => count + 1);
-    const reset = () => setCount(0);
-    return (
-        <div>
-            <Button clickHandler={decrement}>-</Button>
-            <span>{count}</span>
-            <Button clickHandler={increment}>+</Button>
-            <br />
-            <Button clickHandler={reset}>reset</Button>
-        </div>
-    )
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		console.log(`Count is currently: ${count}`);
+	}, [count]);
+
+	const decrement = () => setCount(count => count - 1);
+	const increment = () => setCount(count => count + 1);
+	const reset = () => setCount(0);
+	return (
+		<div>
+			<Button clickHandler={decrement}>-</Button>
+			<span>{count}</span>
+			<Button clickHandler={increment}>+</Button>
+			<br />
+			<Button clickHandler={reset}>reset</Button>
+		</div>
+	)
 }
 
-render(
-	<div className="App">
-		<Counter />
-	</div>,
-	document.getElementById('root')
-);
+export default Counter;
 ~~~
 
 Can we imagine situations where this might become a problem?
