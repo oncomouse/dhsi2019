@@ -373,15 +373,15 @@ const Form = () => {
 	}
 
 	return (
-	<form onSubmit={handleSubmit}>
-		<div>
-			<label htmlFor="user">Enter User Name:</label>
-			<input name="user" onChange={handleChange} value={userInput} />
-		</div>
-		<div>
-			<button type="submit">Add User</button>
-		</div>
-	</form>
+		<form onSubmit={handleSubmit}>
+			<div>
+				<label htmlFor="user">Enter User Name:</label>
+				<input name="user" onChange={handleChange} value={userInput} />
+			</div>
+			<div>
+				<button type="submit">Add User</button>
+			</div>
+		</form>
 	);
 }
 ~~~
