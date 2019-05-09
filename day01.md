@@ -18,6 +18,24 @@ While there are no required extensions for this class, I would recommend install
 
 To do so, click on the "Extension" icon or use the shortcut (<kbd>⇧+⌘+X</kbd> on Mac; <kbd>⇧+^+X</kbd> on Windows) to open the Extension market. Search for "eslint" and install the "ESLint" package (it's written by Dirk Baeumer and version 1.8.2, currently). Click the green "Install" button and the extension will download and install.
 
+### Opening Our Project
+
+Hopefully before class, you downloaded the .ZIP file with our project boilerplate code. If you've extracted it, open the directory in VS Code (`File -> Open`). If you've not extracted or downloaded, download and extract the .ZIP file and open it in VS Code.
+
+In the side bar of your app, there are five icons:
+
+1. Project Explorer
+1. Search Project
+1. Source Control
+1. Debug
+1. Extensions (which we've already used).
+
+We will be using the "Project Explorer" tab a lot. The shortcut is <kbd>⇧+⌘+E</kbd> on Mac; <kbd>⇧+^+E</kbd> on Windows. Here we can see all the files and directories in our project and create new ones as well.
+
+### Accessing Terminal
+
+We will also need to use a terminal often. Thankfully, Code has a built in terminal display. In the menu, `View->Terminal` will open a command line in your current project. We will use this to run Node.js and, tomorrow, to start our first React app's development server.
+
 ## What Things Do You Need to Learn React?
 
 ### Scope and Closures
