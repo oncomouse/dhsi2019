@@ -44,7 +44,7 @@ Consider these two examples in JavaScript:
 
 ~~~javascript
 function foo(bar) {
-	hello += bar;
+  hello += bar;
 }
 
 var hello = 'hello';
@@ -56,9 +56,9 @@ vs.
 
 ~~~javascript
 function foo(bar) {
-	var hello = 'hello';
-	hello += bar;
-	return hello;
+  var hello = 'hello';
+  hello += bar;
+  return hello;
 }
 
 var hello = 'hello';
@@ -77,11 +77,11 @@ Consider:
 ~~~javascript
 var name = 'Amanda';
 function doSomethingWithName() {
-	var name = 'Susan';
-	if(true) {
-		var name = 'Beth';
-			return name;
-		}
+  var name = 'Susan';
+  if(true) {
+  var name = 'Beth';
+    return name;
+  }
 }
 console.log(doSomethingWithName()); // Prints "Beth"
 ~~~
@@ -125,7 +125,7 @@ If you find yourself using `let` to define variables, try to refactor your code.
 
 ~~~javascript
 function reducer (state, action) {
-	return action.type === 'test' ? state.filter(item => item.updated === false) : state;
+  return action.type === 'test' ? state.filter(item => item.updated === false) : state;
 }
 ~~~
 
@@ -147,11 +147,11 @@ Two examples:
 
 ~~~javascript
 function applyTwice(f, x) {
-	return f(f(x));
+  return f(f(x));
 }
 
 applyTwice(function (x) {
-	return x + 1;
+  return x + 1;
 }, 1); // 3
 ~~~
 
@@ -162,9 +162,9 @@ applyTwice(x => x + 1, 1);
 
 ~~~javascript
 function greetingFactory(greeting) {
-	return function(name) {
-			return greeting + ', ' + name;
-	}
+  return function(name) {
+    return greeting + ', ' + name;
+  }
 }
 
 // Usage examples:
@@ -283,19 +283,19 @@ How do we return a copy of an object with one property altered?
 ~~~javascript
 // Source: https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
 function clone(obj) {
-	if (null == obj || "object" != typeof obj) return obj;
-	var copy = obj.constructor();
-	for (var attr in obj) {
-			if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = obj[attr];
-	}
-	return copy;
+  if (null == obj || "object" != typeof obj) return obj;
+  var copy = obj.constructor();
+  for (var attr in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = obj[attr];
+  }
+  return copy;
 }
 
 const set = (object, key, value) => {
-	const copyObject = clone(object);
-	copyObject[key] = value;
+  const copyObject = clone(object);
+  copyObject[key] = value;
 
-	return copyObject;
+  return copyObject;
 }
 ~~~
 
@@ -303,8 +303,8 @@ OR
 
 ~~~javascript
 const set = (object, key, value) => ({
-	...object,
-	[key]: value
+  ...object,
+  [key]: value
 });
 ~~~
 
@@ -360,7 +360,7 @@ If we wanted to use our `capitalize` function in other parts of our program, we 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 module.exports = {
-	capitalize
+  capitalize
 };
 ~~~
 
