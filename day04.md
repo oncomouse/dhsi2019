@@ -11,35 +11,35 @@ import React, { useState, useEffect } from 'react';
 
 const Button = (props) => {
 	const {
-		clickHandler,
-		children,
-		...otherProps
-	} = props;
+    clickHandler,
+    children,
+    ...otherProps
+  } = props;
 
-	return (
-		<button onClick={clickHandler} {...otherProps}>{children}</button>
-	);
+  return (
+    <button onClick={clickHandler} {...otherProps}>{children}</button>
+  );
 };
 
 const Counter = () => {
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	useEffect(() => {
-		console.log(`Count is currently: ${count}`);
-	}, [count]);
+  useEffect(() => {
+    console.log(`Count is currently: ${count}`);
+  }, [count]);
 
-	const decrement = () => setCount(count => count - 1);
-	const increment = () => setCount(count => count + 1);
-	const reset = () => setCount(0);
-	return (
-		<div>
-			<Button clickHandler={decrement}>-</Button>
-			<span>{count}</span>
-			<Button clickHandler={increment}>+</Button>
-			<br />
-			<Button clickHandler={reset}>reset</Button>
-		</div>
-	)
+  const decrement = () => setCount(count => count - 1);
+  const increment = () => setCount(count => count + 1);
+  const reset = () => setCount(0);
+  return (
+    <div>
+      <Button clickHandler={decrement}>-</Button>
+      <span>{count}</span>
+      <Button clickHandler={increment}>+</Button>
+      <br />
+      <Button clickHandler={reset}>reset</Button>
+    </div>
+  )
 }
 
 export default Counter;
@@ -91,12 +91,12 @@ const Counter = () => {
 }
 
 render(
-	<Provider>
-		<div className="App">
-			<Counter />
-		</div>
-	</Provider>,
-	document.getElementById('root')
+  <Provider>
+    <div className="App">
+      <Counter />
+    </div>
+  </Provider>,
+  document.getElementById('root')
 );
 ~~~
 
@@ -154,7 +154,7 @@ const RESET = Symbol('RESET');
 
 // Actions
 export const incrementAction = () => ({
-	type: INCREMENT
+  type: INCREMENT
 });
 
 export const decrementAction = () => ({
@@ -195,33 +195,33 @@ const ADD_USER = Symbol('ADD_USER');
 const REMOVE_USER = Symbol('REMOVE_USER');
 
 export const addUserAction = name => ({
-	type: ADD_USER,
-	payload: {
-		name
-	}
+  type: ADD_USER,
+  payload: {
+    name
+  }
 });
 
 export const removeUserAction = name => ({
-	type: REMOVE_USER,
-	payload: {
-		name
-	}
+  type: REMOVE_USER,
+  payload: {
+    name
+  }
 });
 
 export const initialState = [];
 
 const actions = {
-	[REMOVE_USER]: (state, action) => {
-		const index = state.indexOf(action.payload.name);
-		return index < 0 ? state : [
-			...state.slice(0, index),
-			...state.slice(index + 1)
-		]
-	},
-	[ADD_USER]: (state, action) => [
-		...state,
-		action.payload.name
-	]
+  [REMOVE_USER]: (state, action) => {
+    const index = state.indexOf(action.payload.name);
+    return index < 0 ? state : [
+      ...state.slice(0, index),
+      ...state.slice(index + 1)
+    ]
+  },
+  [ADD_USER]: (state, action) => [
+    ...state,
+    action.payload.name
+  ]
 }
 
 export default (state, action) => {
@@ -246,81 +246,81 @@ import React, { useState } from 'react';
 const has = (key, object) => Object.prototype.hasOwnProperty.bind(object, key);
 
 const BigForm = () => {
-	const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-	const initialState = {
-			firstName: '',
-			lastName: '',
-			age: 0
-	};
+  const initialState = {
+      firstName: '',
+      lastName: '',
+      age: 0
+  };
 
-	const [formState, setFormState] = useState(initialState);
+  const [formState, setFormState] = useState(initialState);
 
-	const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
-	const updateFormValue = key => ev => {
-			// We have to cache the value bc React events vanish:
-			const value = ev.target.value;
-			setFormState(prevFormState => ({
-				...prevFormState,
-				[key]: value
-			}))
-	};
+  const updateFormValue = key => ev => {
+      // We have to cache the value bc React events vanish:
+      const value = ev.target.value;
+      setFormState(prevFormState => ({
+        ...prevFormState,
+        [key]: value
+      }))
+  };
 
-	// Do nothing validation:
-	const validate = values => ({});
+  // Do nothing validation:
+  const validate = values => ({});
 
-	const handleFormSubmit = ev => {
-		ev.preventDefault();
-		const errors = validate(formState);
-		if (Object.keys(errors).length === 0) {
-			// Update users:
-			setUsers(prevUsers => ([
-				...prevUsers,
-				formState
-			]));
-			// Reset Form
-			setFormState({
-				...initialState
-			});
-		} else {
-			// Attach error state
-			setErrors(errors);
-		}
-	}
+  const handleFormSubmit = ev => {
+    ev.preventDefault();
+    const errors = validate(formState);
+    if (Object.keys(errors).length === 0) {
+      // Update users:
+      setUsers(prevUsers => ([
+        ...prevUsers,
+        formState
+      ]));
+      // Reset Form
+      setFormState({
+        ...initialState
+      });
+    } else {
+      // Attach error state
+      setErrors(errors);
+    }
+  }
 
-	return (
-		<div>
-			<h1>Complicated User Form</h1>
-			{users.length === 0 ? (<p><em>No Users</em></p>) : (
-				<ul>
-					{ users.map((user, i) => (
-						<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
-					))}
-				</ul>
-			)}
-			<form onSubmit={handleFormSubmit}>
-				<div>
-					<label htmlFor="firstName">First Name</label>
-					<input type="text" value={formState.firstName} onChange={updateFormValue('firstName')} />
-					{ has('firstName', errors) ? (<div className="error">{errors.firstName}</div>) : null }
-				</div>
-				<div>
-					<label htmlFor="lastName">Last Name</label>
-					<input type="text" value={formState.lastName} onChange={updateFormValue('lastName')} />
-					{has('lastName', errors) ? (<div className="error">{errors.lastName}</div>) : null}
-				</div>
-				<div>
-					<label htmlFor="age">Age</label>
-					<input type="number" value={formState.age} onChange={updateFormValue('age')} />
-					{has('age', errors) ? (<div className="error">{errors.age}</div>) : null}
-				</div>
-				<div>
-					<button type="submit">Add User</button>
-				</div>
-			</form>
-		</div>
-	)
+  return (
+    <div>
+      <h1>Complicated User Form</h1>
+      {users.length === 0 ? (<p><em>No Users</em></p>) : (
+        <ul>
+          { users.map((user, i) => (
+            <li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+          ))}
+        </ul>
+      )}
+      <form onSubmit={handleFormSubmit}>
+        <div>
+          <label htmlFor="firstName">First Name</label>
+          <input type="text" value={formState.firstName} onChange={updateFormValue('firstName')} />
+          { has('firstName', errors) ? (<div className="error">{errors.firstName}</div>) : null }
+        </div>
+        <div>
+          <label htmlFor="lastName">Last Name</label>
+          <input type="text" value={formState.lastName} onChange={updateFormValue('lastName')} />
+          {has('lastName', errors) ? (<div className="error">{errors.lastName}</div>) : null}
+        </div>
+        <div>
+          <label htmlFor="age">Age</label>
+          <input type="number" value={formState.age} onChange={updateFormValue('age')} />
+          {has('age', errors) ? (<div className="error">{errors.age}</div>) : null}
+        </div>
+        <div>
+          <button type="submit">Add User</button>
+        </div>
+      </form>
+    </div>
+  )
 }
 
 export default BigForm;
@@ -345,66 +345,66 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './BigForm.css';
 
 const BigForm = () => {
-	const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-	const initialState = {
-		firstName: '',
-		lastName: '',
-		age: 0
-	};
+  const initialState = {
+    firstName: '',
+    lastName: '',
+    age: 0
+  };
 
-	const validate = values => ({});
+  const validate = values => ({});
 
-	return (
-		<div>
-			<h1>Complicated User Form</h1>
-			{users.length === 0 ? (<p><em>No Users</em></p>) : (
-				<ul>
-					{ users.map((user, i) => (
-						<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
-					))}
-				</ul>
-			)}
-			<Formik
-				initialValues={initialState}
-				validate={validate}
-				onSubmit={(values, { setSubmitting, resetForm }) => {
-					setUsers(prevUsers => {
-						setSubmitting(false);
-						resetForm();
-						return [
-							...prevUsers,
-							values
-						];
-					}); 
-				}}>
-				{({ isSubmitting, errors, touched }) => (
-					<Form className="form">
-						<div className={'form__set' + (errors.firstName && touched.firstName ? ' form__set--error' : '')}>
-							<label className="form__label" htmlFor="firstName">First Name</label>
-							<Field type="text" name="firstName" className="form__input" />
-							<ErrorMessage className="form__error-message" name="firstName" component="div" />
-						</div>
-						<div className={'form__set' + (errors.lastName && touched.lastName ? ' form__set--error' : '')}>
-							<label className="form__label" htmlFor="lastName">Last Name</label>
-							<Field type="text" name="lastName" className="form__input" />
-							<ErrorMessage className="form__error-message" name="lastName" component="div" />
-						</div>
-						<div className={'form__set' + (errors.age && touched.age ? ' form__set--error' : '')}>
-							<label className="form__label" htmlFor="age">Age</label>
-							<Field type="number" name="age" className="form__input" />
-							<ErrorMessage className="form__error-message" name="age" component="div" />
-						</div>
-						<div>
-							<button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>Add User</button>
-						</div>
-					</Form>
-				)}
-			</Formik>
-		</div>
-	)
+  return (
+    <div>
+      <h1>Complicated User Form</h1>
+      {users.length === 0 ? (<p><em>No Users</em></p>) : (
+        <ul>
+          { users.map((user, i) => (
+            <li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+          ))}
+        </ul>
+      )}
+      <Formik
+        initialValues={initialState}
+        validate={validate}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setUsers(prevUsers => {
+            setSubmitting(false);
+            resetForm();
+            return [
+              ...prevUsers,
+              values
+            ];
+          }); 
+        }}>
+        {({ isSubmitting, errors, touched }) => (
+          <Form className="form">
+            <div className={'form__set' + (errors.firstName && touched.firstName ? ' form__set--error' : '')}>
+              <label className="form__label" htmlFor="firstName">First Name</label>
+              <Field type="text" name="firstName" className="form__input" />
+              <ErrorMessage className="form__error-message" name="firstName" component="div" />
+            </div>
+            <div className={'form__set' + (errors.lastName && touched.lastName ? ' form__set--error' : '')}>
+              <label className="form__label" htmlFor="lastName">Last Name</label>
+              <Field type="text" name="lastName" className="form__input" />
+              <ErrorMessage className="form__error-message" name="lastName" component="div" />
+            </div>
+            <div className={'form__set' + (errors.age && touched.age ? ' form__set--error' : '')}>
+              <label className="form__label" htmlFor="age">Age</label>
+              <Field type="number" name="age" className="form__input" />
+              <ErrorMessage className="form__error-message" name="age" component="div" />
+            </div>
+            <div>
+              <button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>Add User</button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  )
 }
-		
+    
 export default BigForm;
 ~~~
 
@@ -419,16 +419,16 @@ import * as yup from 'yup';
 
 const schema = yup.object().shape({
 firstName: yup
-	.string()
-	.required(),
+  .string()
+  .required(),
 lastName: yup
-	.string()
-	.required(),
+  .string()
+  .required(),
 age: yup
-	.number()
-	.positive()
-	.integer()
-	.required()
+  .number()
+  .positive()
+  .integer()
+  .required()
 });
 ~~~
 
@@ -444,15 +444,15 @@ Fetch uses the JavaScript `Promise` API, which is a way of describing what an as
 
 ~~~javascript
 fetch('some.remote.json')
-	.then((response) => {
-		console.log(response.headers.get('Content-Type'));
-		console.log(response.headers.get('Date'));
+  .then((response) => {
+    console.log(response.headers.get('Content-Type'));
+    console.log(response.headers.get('Date'));
 
-		console.log(response.status);
-		console.log(response.statusText);
-		console.log(response.type);
-		console.log(response.url);
-	});
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.type);
+    console.log(response.url);
+  });
 ~~~
 
 All of those console messages, which tell us about the information the server responded with, will only show up when the request is complete.
@@ -469,34 +469,34 @@ function status(response) {
 }
 
 fetch('https://jsonplaceholder.typicode.com/todos')
-	.then(status)
-	.then(response => response.json()) // Access the JSON data (as a JS object)
-	.then(data => {
-		console.log('Here's your data: ' + data);
-	})
-	.catch(error => {
-		console.log('There was an error: ' + error);
-	});
+  .then(status)
+  .then(response => response.json()) // Access the JSON data (as a JS object)
+  .then(data => {
+    console.log('Here's your data: ' + data);
+  })
+  .catch(error => {
+    console.log('There was an error: ' + error);
+  });
 ~~~
 
 You can also use `fetch` for "POST", "PUT", and "DELETE" operations, if you are working with a full REST API:
 
 ~~~javascript
 fetch(url, {
-	method: 'post',
-	headers: {
-		"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-	},
-	body: 'foo=bar&lorem=ipsum'
+  method: 'post',
+  headers: {
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+  },
+  body: 'foo=bar&lorem=ipsum'
 })
-	.then(status)
-	.then(response => response.json())
-	.then(data => {
-		console.log('Here's your data: ' + data);
-	})
-	.catch(error => {
-		console.log('There was an error: ' + error);
-	});
+  .then(status)
+  .then(response => response.json())
+  .then(data => {
+    console.log('Here's your data: ' + data);
+  })
+  .catch(error => {
+    console.log('There was an error: ' + error);
+  });
 ~~~
 
 There are also libraries that can convert form and state data in React into a valid `fetch` call.
@@ -536,17 +536,17 @@ Here's `useThunkReducer`:
 import { useReducer } from 'react';
 
 const wrapper = ([state, dispatch]) => {
-	return [state, (action) => {
-		if(typeof action === 'function') {
-			return action(dispatch, () => state);
-		} else {
-			return dispatch(action);
-		}
-	}];
+  return [state, (action) => {
+    if(typeof action === 'function') {
+      return action(dispatch, () => state);
+    } else {
+      return dispatch(action);
+    }
+  }];
 }
 
 const useThunkReducer = (reducer, initialState, init=x=>x) => {
-	return wrapper(useReducer(reducer, initialState, init));
+  return wrapper(useReducer(reducer, initialState, init));
 }
 
 export default useThunkReducer;
@@ -566,60 +566,60 @@ import { BrowserRouter as Router, NavLink, Route, Switch } from 'react-router-do
 import styled from '@emotion/styled';
 
 const NavLinks = styled.ul`
-	list-style: none;
-	padding: 0;
-	margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `;
 
 const NavItem = styled.li`
-	display: inline-block;
-	margin: 0.25rem 0.5rem;
+  display: inline-block;
+  margin: 0.25rem 0.5rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
-	color: blue;
-	text-decoration: none;
-	&.active {
-		font-weight: bold;
-	}
-	&:hover {
-		text-decoration: underline;
-	}
+  color: blue;
+  text-decoration: none;
+  &.active {
+    font-weight: bold;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const NavBar = () => (
-	<nav>
-		<NavLinks>
-			<NavItem>
-				<StyledNavLink to="/page1">Page 1</StyledNavLink>
-			</NavItem>
-			<NavItem>
-				<StyledNavLink to="/page2">Page 2</StyledNavLink>
-			</NavItem>
-			<NavItem>
-				<StyledNavLink to="/page3">Page 3</StyledNavLink>
-			</NavItem>
-			<NavItem>
-				<StyledNavLink to="/page4">Page 4</StyledNavLink>
-			</NavItem>
-		</NavLinks>
-	</nav>
+  <nav>
+    <NavLinks>
+      <NavItem>
+        <StyledNavLink to="/page1">Page 1</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/page2">Page 2</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/page3">Page 3</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/page4">Page 4</StyledNavLink>
+      </NavItem>
+    </NavLinks>
+  </nav>
 )
 
 const App = () => {
-	return (
-		<Router>
-			<NavBar />
-			{/* Use <Switch> to only render matching route: */}
-			<Switch> 
-				<Route path="/page1" component={Page1} />
-				<Route path="/page2" component={Page2} />
-				<Route path="/page3" component={Page3} />
-				<Route path="/page4" component={Page4} />
-				<Route component={Default} />
-			</Switch>
-		</Router>
-	);
+  return (
+    <Router>
+      <NavBar />
+      {/* Use <Switch> to only render matching route: */}
+      <Switch> 
+        <Route path="/page1" component={Page1} />
+        <Route path="/page2" component={Page2} />
+        <Route path="/page3" component={Page3} />
+        <Route path="/page4" component={Page4} />
+        <Route component={Default} />
+      </Switch>
+    </Router>
+  );
 }
 
 const PageFactory = (number) => () => (<div><h1>Page {number}</h1><p>Welcome to Page {number}</p></div>);
@@ -640,12 +640,12 @@ import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
-	return (
-		<Router>
-			<Route path="/page:number(\d+)" component={Page} />
-			<Route component={Default} />
-		</Router>
-	);
+  return (
+    <Router>
+      <Route path="/page:number(\d+)" component={Page} />
+      <Route component={Default} />
+    </Router>
+  );
 }
 
 const Page = ({ match }) => (<div><h1>Page {match.params.number}</h1><p>Welcome to Page {match.params.number}</p></div>);
