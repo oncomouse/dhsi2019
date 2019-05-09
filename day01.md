@@ -36,6 +36,8 @@ We will be using the "Project Explorer" tab a lot. The shortcut is <kbd>⇧+⌘+
 
 We will also need to use a terminal often. Thankfully, Code has a built in terminal display. In the menu, `View->Terminal` will open a command line in your current project. We will use this to run Node.js and, tomorrow, to start our first React app's development server.
 
+## The Lazy Programmer's Friend: Don't Repeat Yourself (DRY)
+
 ## What Things Do You Need to Learn React?
 
 ### Scope and Closures

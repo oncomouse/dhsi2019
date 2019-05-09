@@ -133,7 +133,7 @@ The CSS Module loader used by Create React App has added some hash information t
 
 So, while CSS Modules are a bit of a pain, they can be useful if you have issues regarding namespace.
 
-The React ecology has a variety of tools that address the chaos that can result in building large applications. However, as with CSS Modules and everything else we'll talk about today, tools that are more complicated than loading CSS into the global namespace are all going to add a degree of complication to your coding. Part of managing a React project is choosing tools whose inconveniences do not exceed their benefits. You may not need anything we talk about from here on out (CSS Modules, SASS, or CSS-in-JS) for most simple React projects, but a big project will most likely require something like this.
+The React ecology has a variety of JavaScript tools that address the chaos that can result in building large applications. However, as with CSS Modules and everything else we'll talk about today, tools that are more complicated than loading CSS into the global namespace are all going to add a degree of complication to your coding. Part of managing a React project is choosing tools whose inconveniences do not exceed their benefits. You may not need anything we talk about from here on out (CSS Modules, SASS, or CSS-in-JS) for most simple React projects, but a big project will most likely require something like this.
 
 ## Adding SASS to React
 
