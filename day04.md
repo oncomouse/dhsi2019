@@ -67,27 +67,27 @@ import { render } from 'react-dom';
 import { Subscribe, Container, Provider } from 'unstated';
 
 class CounterContainer extends Container {
-    state = {
-        count: 0
-    };
-    increment = () => this.setState(state => ({ count: state.count + 1 }));
-    decrement = () => this.setState(state => ({ count: state.count - 1 }));
-    reset = () => this.setState({ count: 0});
+  state = {
+    count: 0
+  };
+  increment = () => this.setState(state => ({ count: state.count + 1 }));
+  decrement = () => this.setState(state => ({ count: state.count - 1 }));
+  reset = () => this.setState({ count: 0});
 }
 
 const Counter = () => {
-    return (
-        <Subscribe to={[CounterContainer]}>{ counter => (
-            <div>
-                <button onClick={counter.decrement}>-</button>
-                <span>{counter.state.count}</span>
-                <button onClick={counter.increment}>+</button>
-                <br />
-                <button onClick={counter.reset}>reset</button>
-            </div>
-        )}</Subscribe>
-        
-    );
+  return (
+    <Subscribe to={[CounterContainer]}>{ counter => (
+      <div>
+        <button onClick={counter.decrement}>-</button>
+        <span>{counter.state.count}</span>
+        <button onClick={counter.increment}>+</button>
+        <br />
+        <button onClick={counter.reset}>reset</button>
+      </div>
+    )}</Subscribe>
+
+  );
 }
 
 render(
@@ -126,17 +126,17 @@ import React, { useReducer } from 'react';
 import reducer, { initialState, incrementAction, decrementAction, resetAction } from '../reducers/counter';
 
 const Counter = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    return (
-        <div>
-            <button onClick={() => dispatch(decrementAction())}>-</button>
-            <span>{state.count}</span>
-            <button onClick={() => dispatch(incrementAction())}>+</button>
-            <br />
-            <button onClick={() => dispatch(resetAction())}>reset</button>
-        </div>
-    );
+  return (
+    <div>
+      <button onClick={() => dispatch(decrementAction())}>-</button>
+      <span>{state.count}</span>
+      <button onClick={() => dispatch(incrementAction())}>+</button>
+      <br />
+      <button onClick={() => dispatch(resetAction())}>reset</button>
+    </div>
+  );
 }
 
 export default Counter;
@@ -154,33 +154,33 @@ const RESET = Symbol('RESET');
 
 // Actions
 export const incrementAction = () => ({
-		type: INCREMENT
+	type: INCREMENT
 });
 
 export const decrementAction = () => ({
-    type: DECREMENT
+  type: DECREMENT
 });
 
 export const resetAction = () => ({
-    type: RESET
+  type: RESET
 });
 
 // Reducer
 export const initialState = {
-    count: 0
+  count: 0
 };
 
 const actions = {
-    [INCREMENT]: (state) => ({ count: state.count + 1 }),
-    [DECREMENT]: (state) => ({ count: state.count - 1 }),
-    [RESET]: () => ({ count: 0})
+  [INCREMENT]: (state) => ({ count: state.count + 1 }),
+  [DECREMENT]: (state) => ({ count: state.count - 1 }),
+  [RESET]: () => ({ count: 0})
 };
 
 export default (state, action) => {
-    if (Object.prototype.hasOwnProperty.call(actions, action.type)) {
-        return actions[action.type](state, action);
-    }
-    return state;
+  if (Object.prototype.hasOwnProperty.call(actions, action.type)) {
+      return actions[action.type](state, action);
+  }
+  return state;
 }
 ~~~
 
@@ -195,40 +195,40 @@ const ADD_USER = Symbol('ADD_USER');
 const REMOVE_USER = Symbol('REMOVE_USER');
 
 export const addUserAction = name => ({
-    type: ADD_USER,
-    payload: {
-        name
-    }
+	type: ADD_USER,
+	payload: {
+		name
+	}
 });
 
 export const removeUserAction = name => ({
-    type: REMOVE_USER,
-    payload: {
-        name
-    }
+	type: REMOVE_USER,
+	payload: {
+		name
+	}
 });
 
 export const initialState = [];
 
 const actions = {
-    [REMOVE_USER]: (state, action) => {
-        const index = state.indexOf(action.payload.name);
-        return index < 0 ? state : [
-            ...state.slice(0, index),
-            ...state.slice(index + 1)
-        ]
-    },
-    [ADD_USER]: (state, action) => [
-        ...state,
-        action.payload.name
-    ]
+	[REMOVE_USER]: (state, action) => {
+		const index = state.indexOf(action.payload.name);
+		return index < 0 ? state : [
+			...state.slice(0, index),
+			...state.slice(index + 1)
+		]
+	},
+	[ADD_USER]: (state, action) => [
+		...state,
+		action.payload.name
+	]
 }
 
 export default (state, action) => {
-    if (Object.prototype.hasOwnProperty.call(actions, action.type)) {
-        return actions[action.type](state, action);
-    }
-    return state;
+  if (Object.prototype.hasOwnProperty.call(actions, action.type)) {
+    return actions[action.type](state, action);
+  }
+  return state;
 }
 ~~~
 
@@ -340,69 +340,71 @@ Here's the above example rewritten for Formik:
 
 ~~~javascript
 import React, { useState } from 'react';
+import * as yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import './BigForm.css';
 
 const BigForm = () => {
-    const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState([]);
 
-    const initialState = {
-        firstName: '',
-        lastName: '',
-        age: 0
-    };
+	const initialState = {
+		firstName: '',
+		lastName: '',
+		age: 0
+	};
 
-    const validate = values => ({});
+	const validate = values => ({});
 
-    return (
-        <div>
-            <h1>Complicated User Form</h1>
-            {users.length === 0 ? (<p><em>No Users</em></p>) : (
-                <ul>
-                    { users.map((user, i) => (
-                        <li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
-                    ))}
-                </ul>
-            )}
-            <Formik
-                initialValues={initialState}
-                validate={validate}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setUsers(prevUsers => {
-                        setSubmitting(false);
-                        resetForm();
-                        return [
-                            ...prevUsers,
-                            values
-                        ];
-                    }); 
-                }}>
-                {({ isSubmitting }) => (
-                    <Form>
-                        <div>
-                            <label htmlFor="firstName">First Name</label>
-                            <Field type="text" name="firstName" />
-                            <ErrorMessage name="firstName" component="div" />
-                        </div>
-                        <div>
-                            <label htmlFor="lastName">Last Name</label>
-                            <Field type="text" name="lastName" />
-                            <ErrorMessage name="lastName" component="div" />
-                        </div>
-                        <div>
-                            <label htmlFor="age">Age</label>
-                            <Field type="number" name="age" />
-                            <ErrorMessage name="age" component="div" />
-                        </div>
-                        <div>
-                            <button type="submit" disabled={isSubmitting}>Add User</button>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
-        </div>
-    )
+	return (
+		<div>
+			<h1>Complicated User Form</h1>
+			{users.length === 0 ? (<p><em>No Users</em></p>) : (
+				<ul>
+					{ users.map((user, i) => (
+						<li key={i}>{user.firstName} {user.lastName} ({user.age})</li>
+					))}
+				</ul>
+			)}
+			<Formik
+				initialValues={initialState}
+				validate={validate}
+				onSubmit={(values, { setSubmitting, resetForm }) => {
+					setUsers(prevUsers => {
+						setSubmitting(false);
+						resetForm();
+						return [
+							...prevUsers,
+							values
+						];
+					}); 
+				}}>
+				{({ isSubmitting, errors, touched }) => (
+					<Form className="form">
+						<div className={'form__set' + (errors.firstName && touched.firstName ? ' form__set--error' : '')}>
+							<label className="form__label" htmlFor="firstName">First Name</label>
+							<Field type="text" name="firstName" className="form__input" />
+							<ErrorMessage className="form__error-message" name="firstName" component="div" />
+						</div>
+						<div className={'form__set' + (errors.lastName && touched.lastName ? ' form__set--error' : '')}>
+							<label className="form__label" htmlFor="lastName">Last Name</label>
+							<Field type="text" name="lastName" className="form__input" />
+							<ErrorMessage className="form__error-message" name="lastName" component="div" />
+						</div>
+						<div className={'form__set' + (errors.age && touched.age ? ' form__set--error' : '')}>
+							<label className="form__label" htmlFor="age">Age</label>
+							<Field type="number" name="age" className="form__input" />
+							<ErrorMessage className="form__error-message" name="age" component="div" />
+						</div>
+						<div>
+							<button type="submit" disabled={isSubmitting || Object.keys(errors).length > 0}>Add User</button>
+						</div>
+					</Form>
+				)}
+			</Formik>
+		</div>
+	)
 }
-        
+		
 export default BigForm;
 ~~~
 
@@ -416,17 +418,17 @@ export default BigForm;
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-    firstName: yup
-        .string()
-        .required(),
-    lastName: yup
-        .string()
-        .required(),
-    age: yup
-        .number()
-        .positive()
-        .integer()
-        .required()
+firstName: yup
+	.string()
+	.required(),
+lastName: yup
+	.string()
+	.required(),
+age: yup
+	.number()
+	.positive()
+	.integer()
+	.required()
 });
 ~~~
 
