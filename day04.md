@@ -679,3 +679,5 @@ Apps with multiple pages can start to get very big. Thankfully React Router supp
 1. [GraphQL](https://graphql.org/)
 	* A complex, structured query language used in a lot of React apps.
 	* [Apollo](https://www.apollographql.com/) is a popular client/server framework for GraphQL apps.
+1. Testing in React
+	* [Good Overivew of the Technologies and Techniques](https://medium.com/dailyjs/testing-react-an-overview-56204839cbad)

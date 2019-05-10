@@ -455,3 +455,7 @@ Write a React component that extends the form example above by adding the user n
 
 1. How do we track the list of users?
 1. How do we display an array in React?
+1. Can you add functionality to delete users?
+	* Maybe add an "X" link that would delete the user when clicked
+	* How do we delete from an array?
+	* Would it be possible to confirm that the user is sure they want to delete a particular user?
