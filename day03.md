@@ -91,19 +91,19 @@ import React from 'react';
 import styles from './Form.module.css';
 
 const Form = () => (
-	<form className={styles.form}>
-		<div className={styles['form__formset']}>
-			<label for="name" className={styles['form__label']}>Enter Your Name:</label>
-			<input type="text" className={styles['form__input']} name="name" />
-		</div>
-		<div className={styles['form__formset']}>
-			<label for="age" className={styles['form__label']}>Enter Your Age:</label>
-			<input type="number" className={styles['form__input']} name="age" />
-		</div>
-		<div className={styles['form__formset']}>
-			<button type="submit" className={styles['form__submit']}>Verify</button>
-		</div>
-	</form>
+  <form className={styles.form}>
+    <div className={styles['form__formset']}>
+      <label for="name" className={styles['form__label']}>Enter Your Name:</label>
+      <input type="text" className={styles['form__input']} name="name" />
+    </div>
+    <div className={styles['form__formset']}>
+      <label for="age" className={styles['form__label']}>Enter Your Age:</label>
+      <input type="number" className={styles['form__input']} name="age" />
+    </div>
+    <div className={styles['form__formset']}>
+      <button type="submit" className={styles['form__submit']}>Verify</button>
+    </div>
+  </form>
 );
 
 export default Form;
@@ -166,19 +166,102 @@ SASS's big advantage over CSS is programmability. SASS is a programming language
 
 [Emotion](https://emotion.sh/) is a CSS-in-JS framework, which lets us write CSS in JavaScript and use it directly with our React components. Instead of having a separate CSS file, the CSS lives right in the JS code.
 
+There are a couple different ways to use it. The core model uses a custom JSX renderer to add a `css` prop to all React components and a `css` function to fill that prop.
+
+For instance,
+
+~~~javascript
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+
+const StyledComponent = () => {
+  return (
+    <div css={css`
+      margin: auto;
+      width: 500px
+    `}>
+      <h1 css={css`color: hotpink;`}>Title</h1>
+    </div>
+  );
+}
+~~~
+
+You can also use Emotion's `styled` interface to make new, reusable components
+
 For instance, here's a quick, pink button:
 
 ~~~ javascript
+import React from 'react';
 import styled from '@emotion/styled';
 
-const Button = styled.button`
+const Title = styled.h1`
   color: hotpink;
-`
+`;
 
-render(<Button>This is a hotpink button.</Button>)
+const Container = styled.div`
+  margin: auto;
+  width: 500px;
+`;
+
+const StyledComponent = () => {
+  return (
+    <Container>
+      <Title>Title</Title>
+    </Container>
+  );
+}
 ~~~
 
-To install, run `npm install @emotion/core @emotion/styled`.
+If you need global styles, you can use the `Global` component in React:
+
+~~~javascript
+import React from 'react';
+import { Global, css } from '@emotion/core';
+
+const App = () => {
+  return (
+    <div>
+      <Global styles={css`
+        body {
+          background: black;
+          color: white;
+      `} />
+    </div>
+  )
+}
+~~~
+
+Just like with functional composition, you can use Emotion to compose CSS:
+
+~~~javascript
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
+const danger = css`
+  color: red;
+`;
+
+const base = css`
+  background-color: darkgreen;
+  color: turquoise;
+`;
+
+const StyledComponent = () => {
+  return (
+    <div>
+      <div css={base}>This will be turquoise</div>
+      <div css={[danger, base]}>
+          This will be also be turquoise since the base styles
+          overwrite the danger styles.
+      </div>
+      <div css={[base, danger]}>This will be red</div>
+    </div>
+  )
+}
+~~~
+
+* Why would we use Emotion?
+* What could be problems associated with it?
 
 ## SCSS Frameworks
 
