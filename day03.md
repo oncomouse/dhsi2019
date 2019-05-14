@@ -260,6 +260,36 @@ const StyledComponent = () => {
 }
 ~~~
 
+Emotion can also nest selectors like in SASS:
+
+~~~javascript
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const paragraph = css`
+  color: turquoise;
+
+  a {
+    border-bottom: 1px solid currentColor;
+    cursor:pointer;
+  }
+
+  header & {
+    color: green;
+  }
+`
+render(
+  <header>
+    <p css={paragraph}>
+      This is green since it's inside a header
+    </p>
+  </header>
+  <p css={paragraph}>
+    Some text. <a>A link with a bottom border.</a>
+  </p>
+)
+~~~
+
 * Why would we use Emotion?
 * What could be problems associated with it?
 
