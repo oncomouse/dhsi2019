@@ -473,136 +473,6 @@ $browser-context: 16px;
 1. Use variables for z-index scale, colors, fonts
 1. Use mixins to set typography and functions to set rhythm-based sizing.
 
-## Emotion.js
-
-[Emotion](https://emotion.sh/) is a CSS-in-JS framework, which lets us write CSS in JavaScript and use it directly with our React components. Instead of having a separate CSS file, the CSS lives right in the JS code.
-
-There are a couple different ways to use it. The core model uses a custom JSX renderer to add a `css` prop to all React components and a `css` function to fill that prop.
-
-For instance,
-
-~~~javascript
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-
-const StyledComponent = () => {
-  return (
-    <div css={css`
-      margin: auto;
-      width: 500px
-    `}>
-      <h1 css={css`color: hotpink;`}>Title</h1>
-    </div>
-  );
-}
-~~~
-
-You can also use Emotion's `styled` interface to make new, reusable components
-
-For instance, here's a quick, pink button:
-
-~~~ javascript
-import React from 'react';
-import styled from '@emotion/styled';
-
-const Title = styled.h1`
-  color: hotpink;
-`;
-
-const Container = styled.div`
-  margin: auto;
-  width: 500px;
-`;
-
-const StyledComponent = () => {
-  return (
-    <Container>
-      <Title>Title</Title>
-    </Container>
-  );
-}
-~~~
-
-If you need global styles, you can use the `Global` component in React:
-
-~~~javascript
-import React from 'react';
-import { Global, css } from '@emotion/core';
-
-const App = () => {
-  return (
-    <div>
-      <Global styles={css`
-        body {
-          background: black;
-          color: white;
-      `} />
-    </div>
-  )
-}
-~~~
-
-Just like with functional composition, you can use Emotion to compose CSS:
-
-~~~javascript
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-
-const danger = css`
-  color: red;
-`;
-
-const base = css`
-  background-color: darkgreen;
-  color: turquoise;
-`;
-
-const StyledComponent = () => {
-  return (
-    <div>
-      <div css={base}>This will be turquoise</div>
-      <div css={[danger, base]}>
-          This will be also be turquoise since the base styles
-          overwrite the danger styles.
-      </div>
-      <div css={[base, danger]}>This will be red</div>
-    </div>
-  )
-}
-~~~
-
-Emotion can also nest selectors like in SASS:
-
-~~~javascript
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-
-const paragraph = css`
-  color: turquoise;
-
-  a {
-    border-bottom: 1px solid currentColor;
-    cursor:pointer;
-  }
-
-  header & {
-    color: green;
-  }
-`
-render(
-  <header>
-    <p css={paragraph}>
-      This is green since it's inside a header
-    </p>
-  </header>
-  <p css={paragraph}>
-    Some text. <a>A link with a bottom border.</a>
-  </p>
-)
-~~~
-
-* Why would we use Emotion?
-* What could be problems associated with it?
 
 ## SCSS/CSS Frameworks
 
@@ -729,5 +599,139 @@ Links:
 * [What is Functional CSS?](https://jon.gold/2015/07/functional-css/)
 * [CSS and Scalability](http://mrmrs.cc/writing/2016/03/24/scalable-css/)
 * [Rationalizing Functional CSS](https://marcelosomers.com/writing/rationalizing-functional-css/)
+
+## Emotion.js
+
+[Emotion](https://emotion.sh/) is a CSS-in-JS framework, which lets us write CSS in JavaScript and use it directly with our React components. Instead of having a separate CSS file, the CSS lives right in the JS code.
+
+There are a couple different ways to use it. The core model uses a custom JSX renderer to add a `css` prop to all React components and a `css` function to fill that prop.
+
+For instance,
+
+~~~javascript
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+
+const StyledComponent = () => {
+  return (
+    <div css={css`
+      margin: auto;
+      width: 500px
+    `}>
+      <h1 css={css`color: hotpink;`}>Title</h1>
+    </div>
+  );
+}
+~~~
+
+You can also use Emotion's `styled` interface to make new, reusable components
+
+For instance, here's a quick, pink button:
+
+~~~ javascript
+import React from 'react';
+import styled from '@emotion/styled';
+
+const Title = styled.h1`
+  color: hotpink;
+`;
+
+const Container = styled.div`
+  margin: auto;
+  width: 500px;
+`;
+
+const StyledComponent = () => {
+  return (
+    <Container>
+      <Title>Title</Title>
+    </Container>
+  );
+}
+~~~
+
+If you need global styles, you can use the `Global` component in React:
+
+~~~javascript
+import React from 'react';
+import { Global, css } from '@emotion/core';
+
+const App = () => {
+  return (
+    <div>
+      <Global styles={css`
+        body {
+          background: black;
+          color: white;
+      `} />
+    </div>
+  )
+}
+~~~
+
+Just like with functional composition, you can use Emotion to compose CSS:
+
+~~~javascript
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
+const danger = css`
+  color: red;
+`;
+
+const base = css`
+  background-color: darkgreen;
+  color: turquoise;
+`;
+
+const StyledComponent = () => {
+  return (
+    <div>
+      <div css={base}>This will be turquoise</div>
+      <div css={[danger, base]}>
+          This will be also be turquoise since the base styles
+          overwrite the danger styles.
+      </div>
+      <div css={[base, danger]}>This will be red</div>
+    </div>
+  )
+}
+~~~
+
+Emotion can also nest selectors like in SASS:
+
+~~~javascript
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const paragraph = css`
+  color: turquoise;
+
+  a {
+    border-bottom: 1px solid currentColor;
+    cursor:pointer;
+  }
+
+  header & {
+    color: green;
+  }
+`;
+
+const Component = () => {
+  return (
+    <header>
+      <p css={paragraph}>
+        This is green since it's inside a header
+      </p>
+    </header>
+    <p css={paragraph}>
+      Some text. <a>A link with a bottom border.</a>
+    </p>
+  );
+}
+~~~
+
+* Why would we use Emotion?
+* What could be problems associated with it?
 
 ## Exercises!
