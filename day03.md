@@ -1,7 +1,19 @@
 # Day 3 – Doing Everything With Style!
 
+As we will talk about numerous times today, CSS (Cascading StyleSheets) is a great technology for styling websites in a structured and logical manner. It was an important web technology when it was developed because it decoupled design from content: HTML was, as it was always intended, a language for describing what the elements of a website were semantically ("this is a heading level 1, this is a paragraph, here's a table!") while CSS told the browser how the designer wanted these individual document elements to appear.
 
-## CSS Rules
+However, one problem that crops up a lot when you dive into contemporary web development is how little the developers of many of these web technologies thought that the Internet would ever be a serious application platform. CSS is especially notable for these sorts of problems (though JavaScript has signs that [it was developed from scratch by one person in 10 days](https://thenewstack.io/brendan-eich-on-creating-javascript-in-10-days-and-what-hed-do-differently-today/)). Particularly, as we will see today:
+
+1. Everything is stored in a global namespace
+1. CSS Parser is inefficient on long selectors
+1. There are no variables and no control structures
+1. Because of #3, there is no way to patch old versions of CSS (a la JavaScript)
+
+We'll be looking first at strategies for writing CSS that address #1 and #2 before looking at technologies that use pre-processors to address #3 and #4.
+
+The big thing we'll be learning today is that CSS lets you build very complex designs quickly and easily but without investigating in best practices in advance, large CSS projects can quickly get out of control. CSS, even more than JavaScript and React, is a technology where you will probably want to invest (time and energy, not money) in a scheme to manage your code. While all of the things we will be talking about today have downsides (in terms of complexity, additional project size, or learning a new paradigm), the alternative is to have CSS that is difficult to manage in the long term.
+
+## Some Suggested CSS Rules
 
 Source: [https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06](https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06)
 
@@ -10,7 +22,7 @@ Source: [https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e
 1. CSS Selectors should be separated by 1 blank line.
 1. All CSS Rules should have two elements; if not, refactor.
 
-## BEM Rules
+## Managing CSS Components: BEM Rules
 
 BEM stands for **B**lock, **E**lement, **M**odifier. It is a hierarchical, logical, and predictable way to name classes in CSS.
 
