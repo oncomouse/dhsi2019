@@ -152,6 +152,8 @@ The React ecology has a variety of JavaScript tools that address the chaos that 
 
 SASS stands for Syntactically Aware StyleSheets.
 
+It is a CSS pre-processor that defines a super-set of CSS features (variables, mixins, functions, control structures) and offers a transpiler that processes this supped up version of CSS (called SCSS) into regular CSS. So, you write code in SCSS and have an application boilerplate (like Create React App) compile your SCSS into CSS code.
+
 To add SASS support to Create React App, run `npm install node-sass` (but our sample project already has it loaded) and if you rename any files with a `.css` extension to a `.scss` extension, they will be processed by SASS.
 
 ## What Does SASS Offer?
@@ -160,21 +162,317 @@ SASS's big advantage over CSS is programmability. SASS is a programming language
 
 ### Variables
 
+The most important feature in SASS (imo) is the addition of variables. [There is an experimental implementation of variables in CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/var), but it is not widely supported, so if you want variables in a CSS project, SASS is still the best way to go.
+
+Why would you want variables in your CSS, you may ask? Well, say you're writing a large CSS file for an application and you want the `margin-bottom` for your components to be based on a 15px rhythm (so that you could have a double margin that would be 30px and a triple at 45px). If someone higher up in the project said "you know, I think that's not enough space, make the rhythm 20px", you might be doing a lot of find and replace to get all the rhythms in your code.
+
+In SCSS:
+
+~~~scss
+$rhythm: 15px;
+
+p {
+	margin-bottom: $rhythm;
+}
+
+p.double-mb {
+	margin-bottom: 2 * $rhythm;
+}
+
+p.triple-mb {
+	margin-bottom: 3 * $rhthm;
+}
+~~~
+
+Now, you just change the definition of `$rhythm` to `20px` and your entire site will use the rhythm.
+
+SASS doesn't actually do anything profound and most of the time, we use to save time for refactoring and things of that nature, however the big advantage for SASS is it makes CSS more DRY, which is our goal in all of these technologies.
+
+### Imports
+
+While you can import external files in CSS (usually used to load Google Fonts), SASS significantly turbocharges this feature, letting you import other `.scss` files into your project and including their variables, mixins, and functions.
+
+So, for instance, now you can define a file called `variables.scss` and import it into any other SCSS file you use.
+
+For instance:
+
+`variables.scss` file:
+
+~~~scss
+$rhthym: 15px;
+~~~
+
+`Content.module.scss` file:
+
+~~~scss
+@import "variables.scss"; // Global import, starting from 'src/'
+//@ import "./variables.scss"; // Relative import, starting from CWD
+
+p {
+	margin-bottom: $rhythm;
+}
+
+p.double-mb {
+	margin-bottom: 2 * $rhythm;
+}
+
+p.triple-mb {
+	margin-bottom: 3 * $rhthm;
+}
+~~~
+
+Amazing!
+
+This is also going to become really important when we talk about 3rd party SCSS frameworks in a bit.
+
 ### Mixins
+
+Mixins offer the ability to include CSS code in a variety of contexts.
+
+One example from the CSS article linked above is using mixins to set the font for an element. Consider:
+
+`type.scss`:
+
+~~~scss
+// Font Stack Source: https://gist.github.com/don1138/5761014
+
+$sans: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;;
+$serif: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+
+$weight700: 700;
+$weight400: 400;
+
+@mixin font-sansN4 {
+	font-family: $sans;
+	font-weight: $weight400;
+	font-style: normal;
+}
+
+@mixin font-sansI4 {
+	font-family: $sans;
+	font-weight: $weight400;
+	font-style: italic;
+}
+
+@mixin font-sansN7 {
+	font-family: $sans;
+	font-weight: $weight700;
+	font-style: normal;
+}
+
+@mixin font-sansI7 {
+	font-family: $sans;
+	font-weight: $weight700;
+	font-style: italic;
+}
+
+@mixin font-serifN4 {
+	font-family: $serif;
+	font-weight: $weight400;
+	font-style: normal;
+}
+
+@mixin font-serifI4 {
+	font-family: $serif;
+	font-weight: $weight400;
+	font-style: italic;
+}
+
+@mixin font-serifN7 {
+	font-family: $serif;
+	font-weight: $weight700;
+	font-style: normal;
+}
+
+@mixin font-serifI7 {
+	font-family: $serif;
+	font-weight: $weight700;
+	font-style: italic;
+}
+~~~
+
+Now, when we want to use our fonts:
+
+~~~scss
+@import "type.scss";
+
+body {
+	@include font-sansN4;
+}
+
+strong {
+	@include font-sansN7;
+}
+
+em {
+	@include font-sansI4;
+}
+
+strong em,
+em strong {
+	@include font-sansI7;
+}
+~~~
+
+### Nesting
+
+Consider the code we wrote above, resetting `strong em` and `em strong` with their own rule wasn't the worst thing in the world, *but* could we write it more succinctly?
+
+SASS allows for nested tags, so you can write the following:
+
+~~~scss
+@import "type.scss";
+
+body {
+	@include font-sansN4;
+}
+
+strong {
+	@include font-sansN7;
+
+	em {
+		@include font-sansI7;
+	}
+}
+
+em {
+	@include font-sansI4;
+
+	strong {
+		@include font-sansI7;
+	}
+}
+~~~
+
+Which produces the same thing. 
+
+We can also shorten our paragraph spacing rules from earlier:
+
+~~~scss
+p {
+	margin-bottom: $rhythm;
+
+	&.double-mb {
+		margin-bottom: 2 * $rhythm;
+	}
+
+	&.triple-mb {
+		margin-bottom: 3 * $rhthm;
+	}
+}
+~~~
+
+The ampersand (`&`) in that code is translated by SASS as "the current selector", so the `&.double-mb` translates as `p.double-mb`.
+
+Overall, nesting is really cool, but a lot of people, including the author of that article I linked to at the beginning of today, find it to produce unnecessarily complex code (particularly if you are trying to shorten rules; SASS's syntax hides the fact that if you are four or five nests deep (we've all been there!), it's generating really complex selectors).
+
+One place where nesting is very useful, is defining link behavior:
+
+~~~scss
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+~~~
+
+Though, to be honest, if you are writing well-structured CSS, you don't really need to use nesting for this.
 
 ### Functions
 
+Where Mixins allow repeatable units of CSS rules, functions are used to compute values that may not be CSS rules.
+
+For instance, consider the paragraph rules we defined above for `margin-bottom`. We can rewrite those using a function:
+
+~~~scss
+$rhythm: 15px;
+
+@function rhythm($range: 1) {
+	@return $rhythm * $range;
+}
+
+p {
+	margin-bottom: rhythm();
+}
+
+p.double-mb {
+	margin-bottom: rhythm(2);
+}
+
+p.triple-mb {
+	margin-bottom: rhythm(3);
+}
+~~~
+
+We also set a default `$range` of 1 using SASS's default parameter syntax.
+
+*Note*: you can also pass parameters to mixins. For instance, just for illustrative purposes, we could write:
+
+~~~scss
+$rhythm: 15px;
+
+@function rhythm($range: 1) {
+	@return $rhythm * $range;
+}
+
+@mixin mb-rhythm($range: 1) {
+	margin-bottom: rhythm($range);
+}
+
+p {
+	@include mb-rhythm();
+}
+
+p.double-mb {
+	@include mb-rhythm(2);
+}
+
+p.triple-mb {
+	@include mb-rhythm(3);
+}
+~~~
+
+This is probably overkill, but it illustrates the differences between functions and mixins in SASS.
+
+#### Dealing with Units in SASS
+
+SASS takes units very seriously. However, it does allow you to easily convert between them. Here are the rules for unit math in SASS:
+
+* To give a number a unit, multiply the value per one member of the desired unit (e.g. 42 * 1px);
+* To remove unit from a number, divide by one member of the relevant unit (e.g. 42px / 1px);
+* When adding or subtracting two numbers with different compatible units, result is expressed in the unit of the first member;
+* To convert a value from one unit to another (compatible), add the value to 0 member of the final unit (e.g. 0px + 42in).
+
+Some unit conversions result in SASS reporting "incompatible units". Many times, these units (such as `rem` or `%`) require a context. In browsers that have not changed the `font-size` property on `html`, the default size is `16px`. Knowing this, we can write the following to convert incompatible units, using rules we already learned above:
+
+~~~scss
+$browser-context: 16px;
+
+@function pixToRem($pixels, $context: $browser-context) {
+	@return 0rem + ($pixels / $context);
+}
+
+@function pixToPercentage($pixels, $context: $browser-context) {
+	@return 100% * ($pixels / $context);
+}
+~~~
+
 ### Control Structures
 
-## Organizing SASS Projects
+#### `if/else`
 
-### Variables
+#### Loops
 
-### Mixins
+#### Map
 
 ## SASS Rules
 
 1. Use variables for z-index scale, colors, fonts
+1. Use mixins to set typography and functions to set rhythm-based sizing.
+
 ## Emotion.js
 
 [Emotion](https://emotion.sh/) is a CSS-in-JS framework, which lets us write CSS in JavaScript and use it directly with our React components. Instead of having a separate CSS file, the CSS lives right in the JS code.
