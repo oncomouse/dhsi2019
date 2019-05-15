@@ -1,5 +1,6 @@
 # Day 3 – Doing Everything With Style!
 
+
 ## CSS Rules
 
 Source: [https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06](https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06)
@@ -293,7 +294,9 @@ render(
 * Why would we use Emotion?
 * What could be problems associated with it?
 
-## SCSS Frameworks
+## SCSS/CSS Frameworks
+
+There are *many* different approaches to building websites using DRY CSS code. The most famous is probably Bootstrap, which offers a really easy-to-use set of components and utility CSS for rapidly building functional websites. The downside for Bootstrap is that, as it becomes more popular, websites start to resemble one another.
 
 ### Using SCSS w/ CRA
 
@@ -305,10 +308,85 @@ render(
 
 ### Functional CSS Libraries
 
+As with functional composition and style composition in Emotion, some web designers have begun to think in terms of functional CSS, which is to say a series of standardized classes that add certain small features to HTML elements that, when added together, produce a more complex behavior.
+
+Here's an HTML example using Tachyons:
+
+~~~html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>TACHYONS - Buttons | Basic Rounded Extra Small</title>
+		<meta name="description" content="Tachyons Component">
+			<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="author" content="@mrmrs">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+	</head>
+	<body class="w-100 sans-serif bg-white pt5">
+		<div class="ph3">
+			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-navy" href="#0">Button Text</a>
+			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-blue" href="#0">Button Text</a>
+			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-green" href="#0">Button Text</a>
+		</div>
+	</body>
+</html>
+~~~
+
+Breaking down the classes on the `<a>` tags:
+
+* `f6` - Sets the font size (to 6, which is a defined scale of values)
+* `link` - Sets basic link behavior
+* `dim` - Dims the button on mouseover
+* `br1` - Sets a rounded border-radius
+* `ph3` - Sets horizontal padding
+* `pv2` - Sets vertical padding
+* `mb2` - Sets bottom margin
+* `dib` - Sets `display: inline-block`
+* `white` - Sets `color: white`
+* `bg-` - Sets the background to various colors
+
+And so on and so forth. Tachyons adds a lot of `class=""` props to your HTML (or JSX in React) but the CSS for your entire application is of a fixed (and relatively small) size.
+
+Also, as with the SCSS frameworks above, Tachyons is available [as a SASS library](https://github.com/tachyons-css/tachyons-sass) so you can customize the sizing scales, fonts, and colors.
+
+Tachyons are also fairly easy to incorporate into a React project. Just include the CDN link (`https://unpkg.com/tachyons/css/tachyons.min.css`) in `public/index.html` inside the `<head>` tag and use strings of Tachyons as `className` props for your React components:
+
+~~~javascript
+import React from 'react';
+
+const BUTTON_TACHYONS = 'f6 link dim br1 ph3 pv2 mb2 dib';
+const CONTAINER_TACHYONS = 'ph3';
+
+const ButtonBar = (props) => {
+  const {
+    buttons
+  } = props;
+  
+  return (
+    <div className=`CONTAINER_TACHYONS`>
+      {
+        buttons.map((button, i) => (
+          <a
+            className={`${BUTTON_TACHYONS ${button.color || white} bg-${button.background || black}`}
+            href={button.href}
+          >{button.text}</a>
+        )
+      }
+    </div>
+  );
+}
+
+~~~
+
+Links:
+
 * [BassCSS](https://github.com/basscss/basscss)
 * [Tachyons](http://tachyons.io/)
 
 #### Background Info
+
 * [What is Functional CSS?](https://jon.gold/2015/07/functional-css/)
 * [CSS and Scalability](http://mrmrs.cc/writing/2016/03/24/scalable-css/)
 * [Rationalizing Functional CSS](https://marcelosomers.com/writing/rationalizing-functional-css/)
