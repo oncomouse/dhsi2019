@@ -462,17 +462,159 @@ $browser-context: 16px;
 
 ### Control Structures
 
+In addition to variables, functions, and mixins, SASS has all the features you would expect from a modern programming language.
+
 #### `if/else`
+
+You can use boolean tests to branch your CSS code:
+
+~~~scss
+$fontSize: 28px;
+
+p {
+	font-size: $fontSize;
+	@if(fontSize > 25px) {
+		color: red;
+	} @else {
+		color: blue;
+	}
+}
+~~~
 
 #### Loops
 
+You can also iterate on structures.
+
+Here's some code I wrote for my SASS and Markdown driven slide application:
+
+~~~scss
+@for $i from 5 through 150 {
+	.f#{$i}px {
+		blockquote,
+		p,
+		li,
+		td,
+		.remark-code {
+			font-size: $i * 1px;
+			line-height: 1.4;
+			& small {
+				font-size: $i * 0.85px;
+			}
+		}
+	}
+	span.f#{$i}px {
+		font-size: $i * 1px;
+		line-height: 1.4;
+	}
+	// Size emoji:
+	.f#{$i}px img.emoji {
+		height: $i *1px;
+		max-height: 72px;
+	}
+}
+~~~
+
+I needed to generate classes of the form `.fXXpx` to set pixel-based font sizes for slides (to increase readability). The syntax for the rules (`.f#{$i}px`) is how you insert variables into CSS selector rules in SASS.
+
+Sass also has `@while`:
+
+~~~scss
+$num: 4;
+
+@while $num > 0 {
+    .module-#{$num} {
+        content: "#{$num}";
+    }
+
+    $num: $num - 1;
+}
+~~~
+
+And `@each`:
+
+~~~scss
+// Source: https://alligator.io/sass/each-loops/
+
+$shapes: triangle, square, circle;
+
+@each $shape in $shapes {
+  .icon-#{$shape} {
+    background-image: url('/images/#{$shape}.jpg');
+  }
+}
+~~~
+
 #### Map
 
-## SASS Rules
+SASS also has a key/value based data structure, called a map. You can define one like this:
+
+~~~scss
+$headingSizes: (
+  h1: 20px,
+  h2: 16px,
+  h3: 14px
+);
+~~~
+
+Maps are useful, as above, for setting multiple values in the same place. They can also be useful for things like colors or themes.
+
+You can access a Map using `map-get`. Here's an example for building a mixin that uses maps to manage breakpoints in CSS:
+
+~~~scss
+// Source: https://www.sitepoint.com/using-sass-maps/
+
+$breakpoints: (
+  small: 767px,
+  medium: 992px,
+  large: 1200px
+);
+
+@mixin respond-to($breakpoint) { 
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+.element {
+  color: hotpink;
+
+  @include respond-to(small) {
+    color: tomato;
+  }
+}
+~~~
+
+You can also use an `@each` loop to parse a map:
+
+~~~scss
+// Source: https://alligator.io/sass/each-loops/
+
+$headingSizes: (
+	h1: 20px,
+	h2: 16px,
+	h3: 14px
+);
+
+@each $element, $size in $map {
+  #{$element} {
+    font-size: $size;
+  }
+}
+~~~
+
+*Note: in SASS, there are two comment syntaxes. Lines that begin with `//` are removed in pre-processing. Lines that begin with `/*` and end with `*/` (which is the CSS comment syntax) are passed through pre-processing.*
+
+## Recommended SASS Rules
 
 1. Use variables for z-index scale, colors, fonts
 1. Use mixins to set typography and functions to set rhythm-based sizing.
-
 
 ## SCSS/CSS Frameworks
 
@@ -663,6 +805,7 @@ const App = () => {
         body {
           background: black;
           color: white;
+        }
       `} />
     </div>
   )
@@ -689,8 +832,8 @@ const StyledComponent = () => {
     <div>
       <div css={base}>This will be turquoise</div>
       <div css={[danger, base]}>
-          This will be also be turquoise since the base styles
-          overwrite the danger styles.
+        This will be also be turquoise since the base styles
+        overwrite the danger styles.
       </div>
       <div css={[base, danger]}>This will be red</div>
     </div>
