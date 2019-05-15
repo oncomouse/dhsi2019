@@ -665,7 +665,9 @@ Apps with multiple pages can start to get very big. Thankfully React Router supp
 
 ## Other React Things to Know
 
-1. Server-side Rendering
+1. Server-side Rendering: you can use React in Node.js server application to render static HTML that can be "re-hydrated" after the initial render. This makes your React applications indexable by search engines and speeds the initial page load.
+	* [API overview for `react-dom-server`](https://reactjs.org/docs/react-dom-server.html)
+	* [Overview of how to do this w/ Express](https://flaviocopes.com/react-server-side-rendering/)
 1. SSR Frameworks: these are all-in-one application frameworks, like much more powerful versions of CRA. They support things like routing and static compilation right out of the box.
 	* [Next.js](https://nextjs.org/)
 	* [Gatsby](https://www.gatsbyjs.org/)
@@ -681,3 +683,11 @@ Apps with multiple pages can start to get very big. Thankfully React Router supp
 	* [Apollo](https://www.apollographql.com/) is a popular client/server framework for GraphQL apps.
 1. Testing in React
 	* [Good Overivew of the Technologies and Techniques](https://medium.com/dailyjs/testing-react-an-overview-56204839cbad)
+
+## General JavaScript Things
+
+With Node.js, you can now write server-side code in JavaScript. Combined with React (and linked using a REST API or GraphQL), your entire application can be written in the same language. You can use code on both the server and in the browser.
+
+To get started with this, read up on [Express](https://expressjs.com/), the very minimal but very powerful Node.js server framework.
+
+Combining front-end and back-end code in the same language like this is where you see React really shine. By loading all your rendering code in the browser, the back-end is very small and fast and, by using standard data-interchange formats, your server can exchange data with other applications using the same interface it streams data to your front-end.
