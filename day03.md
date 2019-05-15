@@ -608,11 +608,40 @@ render(
 
 There are *many* different approaches to building websites using DRY CSS code. The most famous is probably Bootstrap, which offers a really easy-to-use set of components and utility CSS for rapidly building functional websites. The downside for Bootstrap is that, as it becomes more popular, websites start to resemble one another.
 
+One way to make Bootstrap less Bootstrap-y is customizing it. If you use something like [Bootswatch](https://bootswatch.com/), you get some free themes. There are a lot of pay themes. However, if you want to customize Bootstrap for yourself, you have to use SASS.
+
 ### Using SCSS w/ CRA
+
+To install Bootstrap in CRA, you run `npm install bootstrap`. Also, if you intend to use Bootstrap's JavaScript components, you need to run `npm install jquery popper.js` as Bootstrap depends on them.
+
+You can then create an SCSS file, called say `src/custom-bootstrap.scss` and include the following:
+
+~~~scss
+// Override default variables before the import
+$body-bg: #000;
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+~~~
+
+That last import, starting with a `~`, is how you include SCSS from a package installed with NPM.
+
+In SASS, you can define a variable with the `!default` option (so `$myvariable: 1px !default;`). If you do this and someone else defines the variable before the code you wrote is executed (as we are doing above), the variable set earlier overrides the default value; otherwise, the default is used. Bootstrap defines all its variables like this, so you can redefine as much or as little of Bootstrap's framework as you like.
+
+To use JavaScript components, you need to add the following lines to `src/index.js`:
+
+~~~javascript
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+~~~
+
+Other Frameworks you can use for applications:
 
 * [Bootstrap](https://getbootstrap.com/)
 * [Foundation](https://foundation.zurb.com/)
 * [Cutestrap](https://www.cutestrap.com/)
+* [Bulma](https://bulma.io/)
 * [Sierra](http://sierra-library.github.io/)
 * [Hocus Pocus](https://bkzl.github.io/hocus-pocus/)
 
