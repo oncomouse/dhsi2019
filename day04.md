@@ -760,8 +760,25 @@ The very cool resource [JSONPlaceholder](https://jsonplaceholder.typicode.com) o
 
 [Here's an overview of using JSONPlaceholder as a REST API](https://github.com/typicode/jsonplaceholder#how-to), to get you started.
 
+JSONPlaceholder uses userIDs to sort the Todos. Here's an example of the output: [https://jsonplaceholder.typicode.com/todos?userId=1](https://jsonplaceholder.typicode.com/todos?userId=1)
+
 #### Custom Styles
 
 TodoMVC could probably use a fresh, 2019 style (maybe [vaporwave](https://www.google.com/search?q=vaporwave&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjpm46Ox6DiAhUMd6wKHTfeCJ0Q_AUIDigB&biw=1462&bih=822)?). How would we go about updating the style?
 
 What technology should we use to do this? Emotion? SCSS? Modules or global files?
+
+#### Adding User Logins
+
+I think the three above feats are probably enough, but if we wanted to get even more into building out our TodoMVC app, we could add actual user authentication. I recently registered for [Okta](https://okta.com), a free, headless user management service. It's free for the first 1000 users and then goes up from there.
+
+If we wanted to get really fancy with our app, we could use Okta to authenticate our users and then download JSONPlaceholder data based on their user IDs.
+
+Here's the tutorial for [React and Okta](https://developer.okta.com/code/react/), though I've not actually done this part before, so we would all be learning something.
+
+To use this, I believe we would need React router to break our app into two routes:
+
+* Login page
+* Todo App
+
+We would also need to read up on how to protect routes in react router, so that we aren't showing user-only content to just anyone.
