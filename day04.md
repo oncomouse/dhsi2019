@@ -691,3 +691,77 @@ With Node.js, you can now write server-side code in JavaScript. Combined with Re
 To get started with this, read up on [Express](https://expressjs.com/), the very minimal but very powerful Node.js server framework.
 
 Combining front-end and back-end code in the same language like this is where you see React really shine. By loading all your rendering code in the browser, the back-end is very small and fast and, by using standard data-interchange formats, your server can exchange data with other applications using the same interface it streams data to your front-end.
+
+## Exercises!
+
+A standard way to learn a new JavaScript framework, such as React, is to implement [TodoMVC](http://todomvc.com/examples/backbone/). TodoMVC is a standard Todo list that supports adding todo items to a list, toggling between **completed** and **active**, editing, filtering, etc. It teaches the basics of dynamic, data-driven websites while offering a standardized CSS base to work from.
+
+Especially given that the example TodoMVC for React uses an ancient version of the library, I thought it might be fun to implement TodoMVC as practice for what we've learned this week. We can work on it today and tomorrow morning before the showcase.
+
+Here are the features of TodoMVC, sorted by HTML container:
+
+* `<header>`:
+	* An `<h1>` that says "todos"
+	* Add a new todo item using an `<input>`
+		* Pressing <kbd>enter</kbd> will add the todo list
+		* Do not add a blank todo item
+		* Input will have a placeholder of "What needs to be done?"
+* `<section>` (className="main"):
+	* Toggle all displayed todos to either completed or active using a checkbox `<input>`
+		* If all items are completed, the checkbox will be checked.
+		* Otherwise, the checkbox will be unchecked.
+		* Unchecking a checked box will convert all items to active
+		* Checking an unchecked box will convert all items to completed.
+	* An unordered list (`<ul>`) displaying each todo item
+		* Todo items will be displayed as `<li>` tags and will contain:
+			* A `<div>` (className="view") that contains:
+				* A checkbox input that is checked when the item is completed and unchecked when active
+				* A `<label>` containing the title of the todo item
+				* A `<button>` that deletes the todo item when clicked.
+* `<footer>`:
+	* A counter displaying how many active items remain in the form "X items left"
+	* A `<ul>` containing three filter `<button>`s that, when clicked:
+		* Display all items
+		* Display active items
+		* Display completed items
+		* The button for the active filter will have a different class attached to indicate it is active
+	* A `<button>` that, when clicked, will delete all completed tasks.
+
+I've tried to chunk TodoMVC into components, but we may need others. Even given this, you will still want to look at the HTML in developer tools, to see how TodoMVC attaches classes and generates the functionality it uses.
+
+Also, in terms of getting started, here are some additional questions:
+
+* What state data are we going to need to keep track of?
+	* What operations will we need to perform on the data?
+	* How will the data we need to track be structured?
+* How should we organize our project?
+* How should we organize our components?
+	* Do we need unstated?
+	* `useReducer`?
+
+Let's start by making a list of components and state data we will need.
+
+### Optional Feats
+
+As if TodoMVC isn't enough, here are some other tasks we could try to implement.
+
+#### Persistent State
+
+You'll notice in the example TodoMVC linked above that reloading the page persists the todo list, as you make changes to it. How do we do this in React?
+
+Two hints:
+
+* You'll want to read up on "persistent state" in React.
+* You'll also want to see how to do this with hooks, which are relatively new in React.
+
+#### REST API
+
+The very cool resource [JSONPlaceholder](https://jsonplaceholder.typicode.com) offers a free, dummy REST API for testing applications. One data endpoint in the API is for todo list items. How could we add a REST component to our TodoMVC app?
+
+[Here's an overview of using JSONPlaceholder as a REST API](https://github.com/typicode/jsonplaceholder#how-to), to get you started.
+
+#### Custom Styles
+
+TodoMVC could probably use a fresh, 2019 style (maybe [vaporwave](https://www.google.com/search?q=vaporwave&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjpm46Ox6DiAhUMd6wKHTfeCJ0Q_AUIDigB&biw=1462&bih=822)?). How would we go about updating the style?
+
+What technology should we use to do this? Emotion? SCSS? Modules or global files?
