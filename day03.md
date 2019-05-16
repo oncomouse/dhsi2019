@@ -878,3 +878,28 @@ const Component = () => {
 * What could be problems associated with it?
 
 ## Exercises!
+
+Let's spend the rest of today trying to style the two React components from yesterday. Try doing both with different technologies (using Emotion for one and functional CSS for another, for instance).
+
+The user component may be a bit more of a test case, as you can style lists in a lot of interesting ways, in addition to styling forms.
+
+### Other Ideas
+
+* Use [Adorable Avatars](http://avatars.adorable.io/) to generate user images for the user list React component
+	* Can we style those avatars as well?
+* Can we use [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) to change the layout of your components?
+	* [Flexbox Froggy](https://flexboxfroggy.com/) is the classic tutorial for learning flexbox
+
+### Useful Links
+
+* [Tachyons Component Gallery](https://tachyons.io/components/)
+	* Use these to add pre-made Tachyons components to your projects!
+* [Google Fonts](https://fonts.google.com/)
+	* Web fonts greatly increase the typographic options online
+* [Font Stacks](https://gist.github.com/don1138/5761014)
+	* CSS Font Stacks for the modern web
+* [SASS Color Functions](https://www.tutorialsteacher.com/sass/sass-color-functions)
+	* SASS has a variety of helpful color manipulation functions
+	* [In-depth tutorial on using these to generate a full palette for theming](https://www.sitepoint.com/using-sass-build-color-palettes/)
+* [Theming in Emotion](https://emotion.sh/docs/emotion-theming)
+
