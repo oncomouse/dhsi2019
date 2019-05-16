@@ -38,6 +38,70 @@ We will also need to use a terminal often. Thankfully, Code has a built in termi
 
 ## The Lazy Programmer's Friend: Don't Repeat Yourself (DRY)
 
+First introduced in *The Pragmatic Programmer* (1999) by Andrew Hunt and David Thomas, "Don't Repeat Yourself" (DRY) has become a bit of a motto in software design conversations. Hunt and Thomas define DRY with the following axiom:
+
+> Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
+
+In effect, this means never having the same thing expressed in more than one place. If you change the piece of knowledge and it exists in more than one place, you have to change it everywhere.
+
+At a basic level, DRY covers something such as the following:
+
+~~~javascript
+/**
+ * Detect if an object has a given key
+ *
+ * @param object - a JavaScript object
+ * @param key - a key the object might have
+ *
+ * @return Boolean - true if the key is present; false if not
+ */
+function has(object, key) {
+	return Object.prototype.hasOwnProperty.call(object, key)
+}
+
+function test(testObj) {
+	if (!has(testObj, 'name') {
+		throw new Error('The object is missing the key "name"');
+	}
+	if (!has(testObj, 'email') {
+		throw new Error('The object is missing the key "email"');
+	}
+	if (!has(testObj, 'age') {
+		throw new Error('The object is missing the key "age"');
+	}
+	if (!has(testObj, 'hometown') {
+		throw new Error('The object is missing the key "hometown"');
+	}
+}
+~~~
+
+The above code is perfectly fine. It tests is four required keys are present on a supplied object, throwing an Error if any of the keys are missing.
+
+However, what happens if we change something? Say we want the function to return true if the object passes and false if it is missing a key? Or we need to use a different test for object key presence?
+
+We have to rewrite four tests. And while that stinks, it's not the end of the world. On the one hand, this code is offensive because automating repetitive things is one of the main advantages of computing. On the other, and perhaps more important, what if this test logic was split across multiple files in a very large application codebase. Would we even be able to find all the instance to fix?
+
+Instead, consider this much more DRY friendly method:
+
+~~~javascript
+function test(testObj) {
+	var keys = ['name', 'email', 'age', 'hometown'];
+	for(var i=0; i < keys.length; i++) {
+		if(!has(testObj, keys[i]) {
+			throw new Error('The object is missing the key "' + key + '"');
+		}
+	}
+}
+~~~
+
+Now, to add or remove keys, we have to alter the array declaring what we are testing for. To alter the test itself, we have to change one if statement. To alter the behavior on error, we have to alter the single throw statement. This code is much more manageable (we'll talk later about why it's still not as manageable as it could be).
+
+From this first principle, DRY has extended to encompass an entire ethos of application development. As an example from this week, in React forms are difficult to handle: React has a very specific way to manage form data and it expects you to rigorously follow it. As such, there are a number of libraries that automate form creation in React. So, to follow DRY principles, we can use something like that (or write our own if the ones available don't meet our needs). Now, we have abstracted some repetitive form logic to another library.
+
+There is a wealth of tools available to JavaScript and CSS programmers to help with the process of developing DRY code. However, throughout the week, be looking out for moments of repetition or times when you find yourself typing the same or very similar code over and over again. If you see this happening, ask yourself: can I abstract the general principle of this? Can I not repeat myself?
+
+* [A detailed explanation of DRY and the many gotchas associated with it](https://thevaluable.dev/dry-principle-explained/)
+
 ## What Things Do You Need to Learn React?
 
 ### Scope and Closures
