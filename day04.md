@@ -776,9 +776,10 @@ If we wanted to get really fancy with our app, we could use Okta to authenticate
 
 Here's the tutorial for [React and Okta](https://developer.okta.com/code/react/), though I've not actually done this part before, so we would all be learning something.
 
-To use this, I believe we would need React router to break our app into two routes:
+To use this, I believe we would need React router to break our app into three routes:
 
 * Login page
+* User Registration
 * Todo App
 
 We would also need to read up on how to protect routes in react router, so that we aren't showing user-only content to just anyone.
