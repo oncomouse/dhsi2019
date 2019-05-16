@@ -770,7 +770,7 @@ What technology should we use to do this? Emotion? SCSS? Modules or global files
 
 #### Adding User Logins
 
-I think the three above feats are probably enough, but if we wanted to get even more into building out our TodoMVC app, we could add actual user authentication. I recently registered for [Okta](https://okta.com), a free, headless user management service. It's free for the first 1000 users and then goes up from there.
+I think the three above feats are probably enough, but if we wanted to get even more into building out our TodoMVC app, we could add actual user authentication. I recently registered for [Okta](https://okta.com), a headless user management service. It's free for the first 1000 users and then goes up from there.
 
 If we wanted to get really fancy with our app, we could use Okta to authenticate our users and then download JSONPlaceholder data based on their user IDs.
 
