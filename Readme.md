@@ -49,4 +49,6 @@ You can now open your project directory in VS Code if you want, but you should h
 
 If the optional step doesn't work, delete the directory you created and try Option 1, as that will likely work.
 
+Alternately, please email me with information about what operating system you are using and any problems you had. I will be happy to sort out what's happening.
+
 ## See you in Victoria!
