@@ -9,8 +9,8 @@ For this week, we will be learning about advanced JavaScript (specifically the [
 1. Install [Visual Studio Code](https://code.visualstudio.com/)
 1. Install [Node.js](https://nodejs.org/en/download/)
 1. Open Visual Studio Code
-	1. View Extensions (`View -> Extensions`)
-	1. Search for "eslint" and install "ESLint" (should be the first result)
+	1. In the menu, select `View -> Extensions`
+	1. In the sidebar that opens, search for "eslint" and install "ESLint" (should be the first result)
 
 ### Downloading / Configuring Our Project Template
 
