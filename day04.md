@@ -501,6 +501,58 @@ fetch(url, {
 
 There are also libraries that can convert form and state data in React into a valid `fetch` call.
 
+#### The Dreaded CORS Error
+
+If you are working with an API on a different domain from your application, you may encounter an error that mentions that your request "has been blocked from loading by Cross-Origin Resource Sharing policy: No 'Access-Control-Allow-Origin' header is present on the requested resource." This error is because [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests (which are ones that move between two domains) are disabled by default in modern browsers for security reasons.
+
+If you control the API server, there are ways to turn enable CORS for a particular domain ([for instance, here's how to do it in Express](https://medium.com/@alexishevia/using-cors-in-express-cac7e29b005b)).
+
+Another way to do it is using something called JSONP, which embeds the data in a `<script>` tag and loads it using a JavaScript callback function (this is considered more secure by browser makers).
+
+For instance, if you called an API that took `key` and `value` as GET parameters and returned a JSON object, you could `fetch` a URL at `http://my.api/object.json?key=foo&value=bar` and get the following JSON back:
+
+~~~json
+{
+	"foo": "bar"
+}
+~~~
+
+Now, with JSONP, we would have to `fetch` something like `http://my.api/object.jsonp?key=foo&value=bar&callback=processObject` and we would get the following back:
+
+~~~javascript
+processObject({
+	"foo": "bar"
+})
+~~~
+
+We have to pass an additional parameter, the callback method, to our API and it returns a JavaScript function call to that callback, passing the data we want as a parameter.
+
+Because of this additional parameter and particular output format, not all APIs support JSONP, but for those that do, you can use a library called [fetch-jsonp](https://github.com/camsong/fetch-jsonp) that emulates the `fetch` API for JSONP. For most scenarios, it works out of the box ("callback" is the default name for the callback parameter in JSONP).
+
+So, we could use `fetch-jsonp` to search Wikipedia's API, for instance:
+
+~~~javascript
+import fetch from 'fetch-jsonp';
+
+fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${searchTerm}&limit=50&format=json`)
+  .then(response => response.json())
+~~~
+
+This will work out of the box with `fetch-jsonp`, as Wikipedia's API supports JSONP and uses callback as the parameter.
+
+However, consider this API that supports JSONP and returns random quotes:
+
+~~~javascript
+import fetch from 'fetch-jsonp';
+
+fetch('http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp', {
+  jsonpCallback: 'jsonp' // Name of API GET parameter where callback name is sent
+})
+  .then(response => response.json())
+~~~
+
+This API uses `jsonp` as the name of the callback parameter, so we have to supply it to fetch-jsonp. Most APIs are open about this sort of information, so if you encounter a CORS error when interacting with an API, check to see if it supports JSONP.
+
 ### `useThunkReducer`
 
 In the realm of funny-sounding computer science terms, a "thunk" is pretty high on the list. We've been using several of them already, but a thunk is a function that returns another function.
