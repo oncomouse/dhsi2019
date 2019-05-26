@@ -4,7 +4,7 @@
 
 *Note: There are two syntaxes for React, class-based and functional. React, as a whole, is tending toward functional syntax and with the introduction of Hooks in React 0.16, there's little reason to know the class syntax. However, many React tutorials and libraries still use the class syntax in examples. [Check out this tutorial on React's class syntax](documents/react-class-syntax.md), if you want to know more about the original React syntax.*
 
-React functional components are passed a JavaScript object containing what are called "Props" and return HTML that visualizes those props in some fashion. Along the way, React functional components use "Hooks" to add internal functionality and "Handlers" to respond to user input.
+React uses JavaScript code, called components to make dynamic webpages. These components are functions that are passed a JavaScript object containing what are called "Props" and return HTML that visualizes those props in some fashion. Along the way, React functional components use "Hooks" to add internal functionality and "Handlers" to respond to user input.
 
 A component re-renders whenever props change or when certain effects trigger a re-render. In this way, components define dynamic, responsive HTML code that changes as data changes based on user interactions.
 
