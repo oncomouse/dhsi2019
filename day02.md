@@ -1,4 +1,4 @@
-# React
+# Day 2 — React
 
 ## React Components
 
@@ -168,32 +168,32 @@ To implement the same behavior in React, we do:
 import React from 'react';
 
 const SimpleHandler = () => {
-    const clickHandler = (ev) => {
-        ev.preventDefault();
-        console.log(`You clicked on ${ev.target}`);
-    };
+  const clickHandler = (ev) => {
+    ev.preventDefault();
+    console.log(`You clicked on ${ev.target}`);
+  };
 
-    const names = [
-        'Mary',
-        'Amy',
-        'Rita',
-        'Samantha'
-    ];
+  const names = [
+    'Mary',
+    'Amy',
+    'Rita',
+    'Samantha'
+  ];
 
-    return (
-        <div>
-            <ul>
-                {names.map((name, i) => (
-                    <li key={i}>
-                        <a
-                            onClick={clickHandler}
-                            href={`https://en.wikipedia.org/wiki/${name}`}
-                        >{name}</a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
+  return (
+    <div>
+      <ul>
+        {names.map((name, i) => (
+          <li key={i}>
+            <a
+              onClick={clickHandler}
+              href={`https://en.wikipedia.org/wiki/${name}`}
+            >{name}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 };
 
 export default SimpleHandler;

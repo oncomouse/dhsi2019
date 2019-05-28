@@ -145,7 +145,7 @@ var name = 'Amanda';
 function doSomethingWithName() {
   var name = 'Susan';
   if(true) {
-  var name = 'Beth';
+    var name = 'Beth';
     return name;
   }
 }
