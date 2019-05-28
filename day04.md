@@ -1,4 +1,4 @@
-# Advanced React
+# Day 04 — Advanced React
 
 ## How Do We Exchange Data Between Components?
 
