@@ -46,26 +46,26 @@ Sample BEM code:
 
 ~~~css
 .form {
-	margin: 1rem;
+  margin: 1rem;
 }
 
 .form__formset {
-	border: 1px solid #eee;
+  border: 1px solid #eee;
 }
 
 .form__input {
-	border: 0;
-	border-bottom: 1px solid #666;
+  border: 0;
+  border-bottom: 1px solid #666;
 }
 
 .form__label {
-	font-size: 0.9rem;
-	padding-right: 0.5rem;
+  font-size: 0.9rem;
+  padding-right: 0.5rem;
 }
 
 .form__submit {
-	display: block;
-	margin: auto;
+  display: block;
+  margin: auto;
 }
 ~~~
 
@@ -73,17 +73,17 @@ And the HTML that uses it:
 
 ~~~html
 <form class="form">
-	<div class="form__formset">
-		<label for="name" class="form__label">Enter Your Name:</label>
-		<input type="text" class="form__input" name="name" />
-	</div>
-	<div class="form__formset">
-		<label for="age" class="form__label">Enter Your Age:</label>
-		<input type="number" class="form__input" name="age" />
-	</div>
-	<div class="form__formset">
-		<button type="submit" class="form__submit">Verify</button>
-	</div>
+  <div class="form__formset">
+    <label for="name" class="form__label">Enter Your Name:</label>
+    <input type="text" class="form__input" name="name" />
+  </div>
+  <div class="form__formset">
+    <label for="age" class="form__label">Enter Your Age:</label>
+    <input type="number" class="form__input" name="age" />
+  </div>
+  <div class="form__formset">
+    <button type="submit" class="form__submit">Verify</button>
+  </div>
 </form>
 ~~~
 
@@ -172,15 +172,15 @@ In SCSS:
 $rhythm: 15px;
 
 p {
-	margin-bottom: $rhythm;
+  margin-bottom: $rhythm;
 }
 
 p.double-mb {
-	margin-bottom: 2 * $rhythm;
+  margin-bottom: 2 * $rhythm;
 }
 
 p.triple-mb {
-	margin-bottom: 3 * $rhthm;
+  margin-bottom: 3 * $rhthm;
 }
 ~~~
 
@@ -209,15 +209,15 @@ $rhthym: 15px;
 //@ import "./variables.scss"; // Relative import, starting from CWD
 
 p {
-	margin-bottom: $rhythm;
+  margin-bottom: $rhythm;
 }
 
 p.double-mb {
-	margin-bottom: 2 * $rhythm;
+  margin-bottom: 2 * $rhythm;
 }
 
 p.triple-mb {
-	margin-bottom: 3 * $rhthm;
+  margin-bottom: 3 * $rhthm;
 }
 ~~~
 
@@ -243,51 +243,51 @@ $weight700: 700;
 $weight400: 400;
 
 @mixin font-sansN4 {
-	font-family: $sans;
-	font-weight: $weight400;
-	font-style: normal;
+  font-family: $sans;
+  font-weight: $weight400;
+  font-style: normal;
 }
 
 @mixin font-sansI4 {
-	font-family: $sans;
-	font-weight: $weight400;
-	font-style: italic;
+  font-family: $sans;
+  font-weight: $weight400;
+  font-style: italic;
 }
 
 @mixin font-sansN7 {
-	font-family: $sans;
-	font-weight: $weight700;
-	font-style: normal;
+  font-family: $sans;
+  font-weight: $weight700;
+  font-style: normal;
 }
 
 @mixin font-sansI7 {
-	font-family: $sans;
-	font-weight: $weight700;
-	font-style: italic;
+  font-family: $sans;
+  font-weight: $weight700;
+  font-style: italic;
 }
 
 @mixin font-serifN4 {
-	font-family: $serif;
-	font-weight: $weight400;
-	font-style: normal;
+  font-family: $serif;
+  font-weight: $weight400;
+  font-style: normal;
 }
 
 @mixin font-serifI4 {
-	font-family: $serif;
-	font-weight: $weight400;
-	font-style: italic;
+  font-family: $serif;
+  font-weight: $weight400;
+  font-style: italic;
 }
 
 @mixin font-serifN7 {
-	font-family: $serif;
-	font-weight: $weight700;
-	font-style: normal;
+  font-family: $serif;
+  font-weight: $weight700;
+  font-style: normal;
 }
 
 @mixin font-serifI7 {
-	font-family: $serif;
-	font-weight: $weight700;
-	font-style: italic;
+  font-family: $serif;
+  font-weight: $weight700;
+  font-style: italic;
 }
 ~~~
 
@@ -297,20 +297,20 @@ Now, when we want to use our fonts:
 @import "type.scss";
 
 body {
-	@include font-sansN4;
+  @include font-sansN4;
 }
 
 strong {
-	@include font-sansN7;
+  @include font-sansN7;
 }
 
 em {
-	@include font-sansI4;
+  @include font-sansI4;
 }
 
 strong em,
 em strong {
-	@include font-sansI7;
+  @include font-sansI7;
 }
 ~~~
 
@@ -324,23 +324,23 @@ SASS allows for nested tags, so you can write the following:
 @import "type.scss";
 
 body {
-	@include font-sansN4;
+  @include font-sansN4;
 }
 
 strong {
-	@include font-sansN7;
+  @include font-sansN7;
 
-	em {
-		@include font-sansI7;
-	}
+  em {
+    @include font-sansI7;
+  }
 }
 
 em {
-	@include font-sansI4;
+  @include font-sansI4;
 
-	strong {
-		@include font-sansI7;
-	}
+  strong {
+    @include font-sansI7;
+  }
 }
 ~~~
 
@@ -350,15 +350,15 @@ We can also shorten our paragraph spacing rules from earlier:
 
 ~~~scss
 p {
-	margin-bottom: $rhythm;
+  margin-bottom: $rhythm;
 
-	&.double-mb {
-		margin-bottom: 2 * $rhythm;
-	}
+  &.double-mb {
+    margin-bottom: 2 * $rhythm;
+  }
 
-	&.triple-mb {
-		margin-bottom: 3 * $rhthm;
-	}
+  &.triple-mb {
+    margin-bottom: 3 * $rhthm;
+  }
 }
 ~~~
 
@@ -371,11 +371,11 @@ One place where nesting is very useful, is defining link behavior:
 ~~~scss
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 
-	&:hover {
-		text-decoration: underline;
-	}
+  &:hover {
+    text-decoration: underline;
+  }
 }
 ~~~
 
@@ -391,19 +391,19 @@ For instance, consider the paragraph rules we defined above for `margin-bottom`.
 $rhythm: 15px;
 
 @function rhythm($range: 1) {
-	@return $rhythm * $range;
+  @return $rhythm * $range;
 }
 
 p {
-	margin-bottom: rhythm();
+  margin-bottom: rhythm();
 }
 
 p.double-mb {
-	margin-bottom: rhythm(2);
+  margin-bottom: rhythm(2);
 }
 
 p.triple-mb {
-	margin-bottom: rhythm(3);
+  margin-bottom: rhythm(3);
 }
 ~~~
 
@@ -415,23 +415,23 @@ We also set a default `$range` of 1 using SASS's default parameter syntax.
 $rhythm: 15px;
 
 @function rhythm($range: 1) {
-	@return $rhythm * $range;
+  @return $rhythm * $range;
 }
 
 @mixin mb-rhythm($range: 1) {
-	margin-bottom: rhythm($range);
+  margin-bottom: rhythm($range);
 }
 
 p {
-	@include mb-rhythm();
+  @include mb-rhythm();
 }
 
 p.double-mb {
-	@include mb-rhythm(2);
+  @include mb-rhythm(2);
 }
 
 p.triple-mb {
-	@include mb-rhythm(3);
+  @include mb-rhythm(3);
 }
 ~~~
 
@@ -452,11 +452,11 @@ Some unit conversions result in SASS reporting "incompatible units". Many times,
 $browser-context: 16px;
 
 @function pixToRem($pixels, $context: $browser-context) {
-	@return 0rem + ($pixels / $context);
+  @return 0rem + ($pixels / $context);
 }
 
 @function pixToPercentage($pixels, $context: $browser-context) {
-	@return 100% * ($pixels / $context);
+  @return 100% * ($pixels / $context);
 }
 ~~~
 
@@ -472,12 +472,12 @@ You can use boolean tests to branch your CSS code:
 $fontSize: 28px;
 
 p {
-	font-size: $fontSize;
-	@if(fontSize > 25px) {
-		color: red;
-	} @else {
-		color: blue;
-	}
+  font-size: $fontSize;
+  @if(fontSize > 25px) {
+    color: red;
+  } @else {
+    color: blue;
+  }
 }
 ~~~
 
@@ -489,28 +489,28 @@ Here's some code I wrote for my SASS and Markdown driven slide application:
 
 ~~~scss
 @for $i from 5 through 150 {
-	.f#{$i}px {
-		blockquote,
-		p,
-		li,
-		td,
-		.remark-code {
-			font-size: $i * 1px;
-			line-height: 1.4;
-			& small {
-				font-size: $i * 0.85px;
-			}
-		}
-	}
-	span.f#{$i}px {
-		font-size: $i * 1px;
-		line-height: 1.4;
-	}
-	// Size emoji:
-	.f#{$i}px img.emoji {
-		height: $i *1px;
-		max-height: 72px;
-	}
+  .f#{$i}px {
+    blockquote,
+    p,
+    li,
+    td,
+    .remark-code {
+      font-size: $i * 1px;
+      line-height: 1.4;
+      & small {
+        font-size: $i * 0.85px;
+      }
+    }
+  }
+  span.f#{$i}px {
+    font-size: $i * 1px;
+    line-height: 1.4;
+  }
+  // Size emoji:
+  .f#{$i}px img.emoji {
+    height: $i *1px;
+    max-height: 72px;
+  }
 }
 ~~~
 
@@ -597,9 +597,9 @@ You can also use an `@each` loop to parse a map:
 // Source: https://alligator.io/sass/each-loops/
 
 $headingSizes: (
-	h1: 20px,
-	h2: 16px,
-	h3: 14px
+  h1: 20px,
+  h2: 16px,
+  h3: 14px
 );
 
 @each $element, $size in $map {
@@ -666,22 +666,22 @@ Here's an HTML example using Tachyons:
 ~~~html
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>TACHYONS - Buttons | Basic Rounded Extra Small</title>
-		<meta name="description" content="Tachyons Component">
-			<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-		<meta name="author" content="@mrmrs">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
-	</head>
-	<body class="w-100 sans-serif bg-white pt5">
-		<div class="ph3">
-			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-navy" href="#0">Button Text</a>
-			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-blue" href="#0">Button Text</a>
-			<a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-green" href="#0">Button Text</a>
-		</div>
-	</body>
+  <head>
+    <title>TACHYONS - Buttons | Basic Rounded Extra Small</title>
+    <meta name="description" content="Tachyons Component">
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="author" content="@mrmrs">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+  </head>
+  <body class="w-100 sans-serif bg-white pt5">
+    <div class="ph3">
+      <a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-navy" href="#0">Button Text</a>
+      <a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-blue" href="#0">Button Text</a>
+      <a class="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-green" href="#0">Button Text</a>
+    </div>
+  </body>
 </html>
 ~~~
 

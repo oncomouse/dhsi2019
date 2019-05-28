@@ -100,22 +100,22 @@ It can also work for props. Consider the following code, which extends our origi
 
 ~~~javascript
 const Controller = (props) => {
-	const {
-		title
-	} = props;
-	return (
-		<Title title={title} className="title" />
-	);
+  const {
+    title
+  } = props;
+  return (
+    <Title title={title} className="title" />
+  );
 }
 
 const Title = (props) => {
-	const {
-		title,
-		className
-	} = props;
-	return (
-		<h1 className={className}>{title}</h1>
-	);
+  const {
+    title,
+    className
+  } = props;
+  return (
+    <h1 className={className}>{title}</h1>
+  );
 }
 ~~~
 
@@ -129,12 +129,12 @@ I'm going to rewrite our example component again:
 
 ~~~javascript
 const Headline = (props) => {
-	const {
-		title
-	} = props;
-	return (
-		<h1>{title}</h1>
-	);
+  const {
+    title
+  } = props;
+  return (
+    <h1>{title}</h1>
+  );
 }
 ~~~
 
@@ -150,8 +150,8 @@ Here is an example that uses JavaScript's Document Object Model (DOM) API:
 
 ~~~javascript
 document.querySelectorAll('li a').addEventListener('click', function(ev) {
-	ev.preventDefault();
-	console.log('You clicked on ' + ev.target);
+  ev.preventDefault();
+  console.log('You clicked on ' + ev.target);
 });
 ~~~
 
@@ -213,21 +213,21 @@ Let's look at an example:
 import React, { useState } from 'react';
 
 const Counter = () => {
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	const increment = () => setCount(count => count + 1);
-	const decrement = () => setCount(count => count - 1);
-	const reset = () => setCount(0);
+  const increment = () => setCount(count => count + 1);
+  const decrement = () => setCount(count => count - 1);
+  const reset = () => setCount(0);
 
-	return (
-		<div>
-			<button onClick={decrement}>-</button>
-			<span>{count}</span>
-			<button onClick={increment}>+</button>
-			<br />
-			<button onClick={reset}>Reset</button>
-		</div>
-	);
+  return (
+    <div>
+      <button onClick={decrement}>-</button>
+      <span>{count}</span>
+      <button onClick={increment}>+</button>
+      <br />
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
 };
 ~~~
 
@@ -245,33 +245,33 @@ In React class components, `state` was a single object and you could update the 
 import React, { useState } from 'react';
 
 const Counter = () => {
-	const [state, setState] = useState({
-		count: 0,
-		otherThing: 'hello'
-	});
+  const [state, setState] = useState({
+    count: 0,
+    otherThing: 'hello'
+  });
 
-	const increment = () => setState(state => ({
-		...state,
-		count: state.count + 1
-	});
-	const decrement = () => setState(state => ({
-		...state,
-		count: state.count - 1
-	});
-	const decrement = () => setState(state => ({
-		...state,
-		count: 0
-	});
+  const increment = () => setState(state => ({
+    ...state,
+    count: state.count + 1
+  });
+  const decrement = () => setState(state => ({
+    ...state,
+    count: state.count - 1
+  });
+  const decrement = () => setState(state => ({
+    ...state,
+    count: 0
+  });
 
-	return (
-		<div>
-			<button onClick={decrement}>-</button>
-			<span>{state.count}</span>
-			<button onClick={increment}>+</button>
-			<br />
-			<button onClick={reset}>Reset</button>
-		</div>
-	);
+  return (
+    <div>
+      <button onClick={decrement}>-</button>
+      <span>{state.count}</span>
+      <button onClick={increment}>+</button>
+      <br />
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
 };
 ~~~
 
@@ -285,25 +285,25 @@ Another thing React components do is respond to state and prop changes but not i
 import React, { useState, useEffect } from 'react';
 
 const Counter = () => {
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	useEffect(() => {
-	console.log(`Count is currently: ${count}`);
-	}, [count]);
+  useEffect(() => {
+    console.log(`Count is currently: ${count}`);
+  }, [count]);
 
-	const increment = () => setCount(count => count + 1);
-	const decrement = () => setCount(count => count - 1);
-	const reset = () => setCount(0);
+  const increment = () => setCount(count => count + 1);
+  const decrement = () => setCount(count => count - 1);
+  const reset = () => setCount(0);
 
-	return (
-	<div>
-		<button onClick={decrement}>-</button>
-		<span>{count}</span>
-		<button onClick={increment}>+</button>
-		<br />
-		<button onClick={reset}>Reset</button>
-	</div>
-	);
+  return (
+  <div>
+    <button onClick={decrement}>-</button>
+    <span>{count}</span>
+    <button onClick={increment}>+</button>
+    <br />
+    <button onClick={reset}>Reset</button>
+  </div>
+  );
 };
 ~~~
 
@@ -315,33 +315,33 @@ Sometimes, you only want an effect to happening when a component is mounting (be
 import React, { useState, useEffect } from 'react';
 
 const Counter = () => {
-	const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-	useEffect(() => {
-		console.log(`Count is currently: ${count}`);
-	}, [count]);
+  useEffect(() => {
+    console.log(`Count is currently: ${count}`);
+  }, [count]);
 
-	// Mount & Unmount Side Effects:
-	useEffect(() => {
-		console.log('I\'m mounting…');
-		return () => {
-			console.log('I\'m unmounting…');
-		};
-	}, []);
+  // Mount & Unmount Side Effects:
+  useEffect(() => {
+    console.log('I\'m mounting…');
+    return () => {
+      console.log('I\'m unmounting…');
+    };
+  }, []);
 
-	const increment = () => setCount(count => count + 1);
-	const decrement = () => setCount(count => count - 1);
-	const reset = () => setCount(0);
+  const increment = () => setCount(count => count + 1);
+  const decrement = () => setCount(count => count - 1);
+  const reset = () => setCount(0);
 
-	return (
-		<div>
-			<button onClick={decrement}>-</button>
-			<span>{count}</span>
-			<button onClick={increment}>+</button>
-			<br />
-			<button onClick={reset}>Reset</button>
-		</div>
-	);
+  return (
+    <div>
+      <button onClick={decrement}>-</button>
+      <span>{count}</span>
+      <button onClick={increment}>+</button>
+      <br />
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
 };
 ~~~
 
@@ -364,26 +364,26 @@ In React, a form component's value should display a state variable and should be
 import React, { useState } from 'react';
 
 const Form = () => {
-	const [userInput,  setUserInput] = useState('');
+  const [userInput,  setUserInput] = useState('');
 
-	const handleChange = ev => setUserInput(ev.target.value);
-	const handleSubmit = (ev) => {
-		ev.preventDefault();
-		// Do whatever you'd do with userInput, like send it to a parent or call an API
-		setUserInput('');
-	}
+  const handleChange = ev => setUserInput(ev.target.value);
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    // Do whatever you'd do with userInput, like send it to a parent or call an API
+    setUserInput('');
+  }
 
-	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<label htmlFor="user">Enter User Name:</label>
-				<input name="user" onChange={handleChange} value={userInput} />
-			</div>
-			<div>
-				<button type="submit">Add User</button>
-			</div>
-		</form>
-	);
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="user">Enter User Name:</label>
+        <input name="user" onChange={handleChange} value={userInput} />
+      </div>
+      <div>
+        <button type="submit">Add User</button>
+      </div>
+    </form>
+  );
 }
 ~~~
 

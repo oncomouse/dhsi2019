@@ -10,7 +10,7 @@ The easiest way to solve this is by passing props. For instance:
 import React, { useState, useEffect } from 'react';
 
 const Button = (props) => {
-	const {
+  const {
     clickHandler,
     children,
     ...otherProps
@@ -521,7 +521,7 @@ Now, with JSONP, we would have to `fetch` something like `http://my.api/object.j
 
 ~~~javascript
 processObject({
-	"foo": "bar"
+  "foo": "bar"
 })
 ~~~
 

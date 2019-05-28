@@ -56,22 +56,22 @@ At a basic level, DRY covers something such as the following:
  * @return Boolean - true if the key is present; false if not
  */
 function has(object, key) {
-	return Object.prototype.hasOwnProperty.call(object, key)
+  return Object.prototype.hasOwnProperty.call(object, key)
 }
 
 function test(testObj) {
-	if (!has(testObj, 'name') {
-		throw new Error('The object is missing the key "name"');
-	}
-	if (!has(testObj, 'email') {
-		throw new Error('The object is missing the key "email"');
-	}
-	if (!has(testObj, 'age') {
-		throw new Error('The object is missing the key "age"');
-	}
-	if (!has(testObj, 'hometown') {
-		throw new Error('The object is missing the key "hometown"');
-	}
+  if (!has(testObj, 'name') {
+    throw new Error('The object is missing the key "name"');
+  }
+  if (!has(testObj, 'email') {
+    throw new Error('The object is missing the key "email"');
+  }
+  if (!has(testObj, 'age') {
+    throw new Error('The object is missing the key "age"');
+  }
+  if (!has(testObj, 'hometown') {
+    throw new Error('The object is missing the key "hometown"');
+  }
 }
 ~~~
 
@@ -85,12 +85,12 @@ Instead, consider this much more DRY friendly method:
 
 ~~~javascript
 function test(testObj) {
-	var keys = ['name', 'email', 'age', 'hometown'];
-	for(var i=0; i < keys.length; i++) {
-		if(!has(testObj, keys[i]) {
-			throw new Error('The object is missing the key "' + key + '"');
-		}
-	}
+  var keys = ['name', 'email', 'age', 'hometown'];
+  for(var i=0; i < keys.length; i++) {
+    if(!has(testObj, keys[i]) {
+      throw new Error('The object is missing the key "' + key + '"');
+    }
+  }
 }
 ~~~
 
