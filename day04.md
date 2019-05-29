@@ -713,7 +713,8 @@ React Router uses a library called [path-to-regexp](https://github.com/pillarjs/
 
 Apps with multiple pages can start to get very big. Thankfully React Router supports what is called "code splitting" (this is actually something supported generally by Create React App and you can use it in multiple ways). With code splitting, you can only load the route you need, as the user browses to it. If they don't visit every page, they won't use all of them.
 
-[https://reacttraining.com/react-router/web/guides/code-splitting](https://reacttraining.com/react-router/web/guides/code-splitting)
+* [Official React Router Guide to Code-splitting](https://reacttraining.com/react-router/web/guides/code-splitting)
+* [You can also use the new `Suspense`/`lazy` API in React](https://itnext.io/async-react-using-react-router-suspense-a86ade1176dc)
 
 ## Other React Things to Know
 
