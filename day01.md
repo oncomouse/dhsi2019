@@ -333,7 +333,7 @@ This gets us out of having to remember the difference between `apply` and `call`
 How do we create a copy of an array and add an item to the end?
 
 ~~~javascript
-const addToEnd = (array, item) => array.slice().concat(item);
+const addToEnd = (array, item) => array.slice().concat([item]);
 ~~~
 
 OR

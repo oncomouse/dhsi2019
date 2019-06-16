@@ -149,9 +149,11 @@ JavaScript works by attaching "event listeners" to elements in the HTML document
 Here is an example that uses JavaScript's Document Object Model (DOM) API:
 
 ~~~javascript
-document.querySelectorAll('li a').addEventListener('click', function(ev) {
-  ev.preventDefault();
-  console.log('You clicked on ' + ev.target);
+document.querySelectorAll('li a').forEach(function(li) {
+  li.addEventListener('click', function(ev) {
+    ev.preventDefault();
+    console.log('You clicked on ' + ev.target);
+  });
 });
 ~~~
 
