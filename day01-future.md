@@ -181,7 +181,9 @@ map(
 
 That's a lot shorter! Here, the parameter list is just `x` followed by the fat arrow (`=>`) which I like to read as "will be transformed into" and the output of the function, which is `x * 8 + 3`. Every time you see a `=>` going forward, know that we are writing a function. They can be hard to get used to, so be vigilent!
 
-There are some caveats to fat arrow functions. Consider our add function rewritten:
+The function above is called, in functional programming, a "one-liner" because parameters and output are defined in a single line. It is the asperation of all functional programmers to write one-liners whenever possible.
+
+There are some caveats to fat arrow functions. Consider our `add` function rewritten:
 
 ~~~javascript
 const add = (num1, num2) => num1 + num2;
@@ -355,6 +357,20 @@ Much better. Hopefully that's the last time I write a `for` loop in this class.
 
 `Array.prototype.map()` applies a function to each member of an array and returns a new array composed of these function results.
 
+#### `.filter()`
+
+Here's another problem to solve: how do we remove negative numbers from an array of numbers?
+
+`Array.prototype.filter()` applies a function to each member of an array. This function *must* return a boolean value (`true` or `false`). The return value of filter is the members of the array for whom the function returns `true`.
+
+Consider this example:
+
+~~~javascript
+const removeNegative = array => array.filter(item => item > 0);
+~~~
+
+Filter isn't as widely used as `map`, which is used *all the time* in React, but it is good to file away.
+
 #### `.reduce()`
 
 Now that we have a handle on mapping, which, again, applies a function to each member of the array, how can we solve problems that ask us to convert an array into a single value, like, say, the highest number in an array or the sum of an array of numbers?
@@ -379,35 +395,78 @@ add(6, 4); // -> 10
 
 The function returns `10`, the final result of running the function. Note how in the first call to `add`, the first parameter is set to the second parameter to `reduce`, which is 0. The second call to `add`, the first parameter is `1`, which is the result of the first call to `add`. Each subsequent call is made with the result of the previous call. The final output of `reduce` is the output of the final call.
 
+Reduce is used to convert an array into a single value. We are reducing a list down to a value (like how you boil wine to make a port reduction when cooking). This operation takes some getting used to, but it is the most powerful of the three array transformations (in fact, see below to learn how to implement `map` and `filter` using `reduce`).
+
 Consider another example:
 
 ~~~javascript
-const highestNumber = array => array.reduce((highest, item) => item > highest ? item : highest, -Infinity);
+// Highest returns the larger of two numbers:
+const highest = (num1, b) => num1 > num2 ? num1 : num2;
+const highestNumber = arr => arr.reduce(highest, -Infinity);
 ~~~
 
-This uses a ternary operation, which
+This uses a ternary operation, which is a special operator that takes three arguments: an expression that returns a boolean (true or false) and two values. The boolean expression goes before the question mark, the first value goes after the question mark and before the colon, and the final value goes behind the colon. If the boolean expression is true, the first value is returned; if it is false, the second is returned. We use ternary operators a lot in JavaScript, especially in one-liner fat arrow functions.
 
-`Array.reduce()` applies a function to each member of an array along with either a supplied starting value or the result of the previous function call. The final return value is the last function return.
+Also, I want to rewrite our above example to use an anonymous function as the first parameter to our `reduce` call. While it is fine to define your reducer and mapping functions as separate variables, if you aren't reusing them, it is clearer and simpler to pass an anonymous function to your `map` or `reduce` call. These can look weird at first, but I want to start using them in the examples to get you used to seeing them.
 
-Reduce is used to convert an array into a single value. We could calculate the length of an array using `.reduce()`, if we wanted:
+Here is the highestNumber function rewritten using an anonymous function:
+
+~~~javascript
+const highestNumber = arr => arr.reduce((num1, num2) => (num1 > num2 ? num1 : num2), -Infinity);
+~~~
+
+Some style guides suggesting surrounding ternary operators in one-liners with parentheses to clarify that the whole operator is returned, not just the first test. I tend to agree with them, though I'm often lazy and forget to do so.
+
+Additionally, what's the deal with `-Infinity`? `Infinity` is a symbol defined by JavaScript and represents a number that is greater than any number JavaScript can process. When we negate it, it is the smallest number in JavaScript, so we use it as our start value.
+
+We can also use `reduce` to convert between data types. Imagine we had a list of names and we wanted to start making records out of those names. Our records would be of the `Object` type and have a `name` property. How could we do that?
+
+Array `reduce`, of course! We can use `reduce` to build other complex data types, even new arrays. Consider:
+
+~~~javascript
+const makeNamesIntoRecords = arrOfNames => arrOfNames.reduce((records, name) => records.concat([{ name: name }]), []);
+~~~
+
+Here, we use another array member function, `concat`, which merges a supplied array to the array it's called on. That's why we have to wrap our new record in square braces: we are briefly placing it into it's own array in order to satisfy the requirements of JavaScript's API (there is no `append` function in JavaScript that takes a non-array parameter and adds it to an array; we would need an external library for that). Additionally, we use JavaScript's object notation to describe an `Object` with key `name` set to our parameter `name`. We use curly brace, key name, colon, key value, close curly brace (`{ key: "value" }`) to define objects in JavaScript code.
+
+As a final example, we could calculate the length of an array using `.reduce()`, if we wanted:
 
 ~~~javascript
 const length = array => array.reduce(length => length + 1, 0);
 ~~~
 
+Here, our reducer function is 1-arrity, because we do not need to know the contents of each array item in order to calculate the lenght of the array.
+
 *Hint: Don't ever do this. The `.length` property (`[1,2,3].length`) contains an array's length.*
 
-##### `.reduceRight()`
+#### `.reduceRight()`
 
 Sometimes you need to go end to front on an array. If so, use `.reduceRight()` instead of `.reduce()`.
 
-#### `.filter()`
+#### Advanced: Re-implementing `.map()` and `.filter()` using `.reduce()`
 
-How do we remove negative numbers from an array of numbers?
+To drive home how powerful `.reduce()` is, I want to show you how you can re-implement `map` and `filter` using `reduce`. This exercise is very advanced, so if you don't understand it, don't worry. After you've finished the course, come back and take a look; you may find it makes more sense.
+
+##### `map()`
+
+So, to reiterate, `map` takes a 1-arrity function and an array and applies the function to each element in that array. We can do this with reduce. Consider:
 
 ~~~javascript
-const removeNegative = array => array.filter(item => item > 0);
+const map = (f, arr) => arr.reduce((newArray, current) => newArray.concat([f(current)]), []);
 ~~~
 
-`Array.filter()` applies a function to each member of an array. This function *must* return a boolean value (`true` or `false`). The return value of filter is the members of the array for whom the function returns `true`.
+We use `reduce` to build a new array, like our `makeNamesIntoRecords` function, and in our reducer function, we add `f(current)` to the end of that new array. Simple, right?
 
+But also, so powerful. `reduce` is kind of awesome.
+
+##### `filter()`
+
+Filter, like `map`, takes a 1-arrity function and an array and applies the function to each element in that array. If the result is `true`, the current array item is added to the output array. Again, we can implement this using reduce. Consider:
+
+~~~javascript
+const filter = (f, arr) => arr.reduce((newArray, current) => (f(current) ? newArray.concat([current]) : newArray), []);
+~~~
+
+Here, our reducer function runs `f` on the current array. If `f(current)` is true, it returns the array we are building with `current` added to the end. If not, it just returns the new array. This is important: if the reducer returned nothing, the output of the whole `reduce` would be `undefined`. *A reducer **has** to return a value*.
+
+### Recapping
