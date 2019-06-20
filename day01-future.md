@@ -470,3 +470,10 @@ const filter = (f, arr) => arr.reduce((newArray, current) => (f(current) ? newAr
 Here, our reducer function runs `f` on the current array. If `f(current)` is true, it returns the array we are building with `current` added to the end. If not, it just returns the new array. This is important: if the reducer returned nothing, the output of the whole `reduce` would be `undefined`. *A reducer **has** to return a value*.
 
 ### Recapping
+
+So, things we learned:
+
+* Functions are bundles of code that map from parameters to output based on commands we supply.
+* In JavaScript, functions are **first class**, which means we can pass functions as parameters to other functions and store functions in variables.
+* We can use higher-order functions to pass functions to other functions and to generate new functions.
+* We can use anonymous functions and the functional array transformations to manipulate arrays using `map`, `filter`, and `reduce`.
