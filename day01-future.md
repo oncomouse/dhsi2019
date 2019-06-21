@@ -439,11 +439,13 @@ Here, our reducer function is 1-arrity, because we do not need to know the conte
 
 *Hint: Don't ever do this. The `.length` property (`[1,2,3].length`) contains an array's length.*
 
-#### `.reduceRight()`
+#### Other Functional Array Transformations
 
-Sometimes you need to go end to front on an array. If so, use `.reduceRight()` instead of `.reduce()`.
+* `Array.prototype.reduceRight()` -- This runs reduce in right-to-left order (from the end of the array to the beginning), because sometimes you need that.
+* `Array.prototype.some()` -- Runs a boolean function (one that returns `true` or `false`) on an array. Returns `true` if the test passes at least once.
+	* For instance: `[1,2,3,4].some(x => x % 2 === 0)` will return `true` b/c 2 & 3 are even.
 
-#### Advanced: Re-implementing `.map()` and `.filter()` using `.reduce()`
+#### Advanced: Re-implementing `.map()`, `.filter()`, and `.some()` using `.reduce()`
 
 To drive home how powerful `.reduce()` is, I want to show you how you can re-implement `map` and `filter` using `reduce`. This exercise is very advanced, so if you don't understand it, don't worry. After you've finished the course, come back and take a look; you may find it makes more sense.
 
@@ -468,5 +470,17 @@ const filter = (f, arr) => arr.reduce((newArray, current) => (f(current) ? newAr
 ~~~
 
 Here, our reducer function runs `f` on the current array. If `f(current)` is true, it returns the array we are building with `current` added to the end. If not, it just returns the new array. This is important: if the reducer returned nothing, the output of the whole `reduce` would be `undefined`. *A reducer **has** to return a value*.
+
+##### `some()`
+
+Like `filter`, `some` takes a 1-arrity function that returns a boolean and an array. It returns `true` if the function returns `true` for at least one item. The trick here is, once we have found `true`, how do we keep returning it?
+
+~~~javascript
+const some => (f, arr) = arr.reduce((output, current) => (output || f(current) ? true: false), false);
+~~~
+
+We have to remember when writing reducers that the function runs on every element, so we have to make sure that if we are searching for one item, we keep returning it once we have found it.
+
+If we get to talking about [Ramda](https://ramdajs.com/) today, we will see how Ramda let's you stop executing a reduce, so you can bail out when you have found what you are looking for.
 
 ### Recapping
