@@ -484,3 +484,10 @@ We have to remember when writing reducers that the function runs on every elemen
 If we get to talking about [Ramda](https://ramdajs.com/) today, we will see how Ramda let's you stop executing a reduce, so you can bail out when you have found what you are looking for.
 
 ### Recapping
+
+So, things we learned:
+
+* Functions are bundles of code that map from parameters to output based on commands we supply.
+* In JavaScript, functions are **first class**, which means we can pass functions as parameters to other functions and store functions in variables.
+* We can use higher-order functions to pass functions to other functions and to generate new functions.
+* We can use anonymous functions and the functional array transformations to manipulate arrays using `map`, `filter`, and `reduce`.
